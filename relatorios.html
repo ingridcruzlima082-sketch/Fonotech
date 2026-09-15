@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório Clínico Fonoaudiológico</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .pagina-relatorio {
+            max-width: 850px;
+            margin: 30px auto 80px auto;
+            background: #fff;
+            padding: 50px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: #222;
+        }
+
+        /* Cabeçalho profissional e limpo */
+        .cabecalho-minimalista {
+            border-bottom: 1.5px solid #1e293b;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .titulo-doc {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e293b;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .sub-titulo-doc {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 2px;
+        }
+
+        .profissional-info {
+            text-align: right;
+            font-size: 12px;
+            line-height: 1.4;
+            color: #475569;
+        }
+
+        /* Tabela estruturada limpa */
+        .tabela-cabecalho {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+            font-size: 13px;
+        }
+
+        .tabela-cabecalho th, .tabela-cabecalho td {
+            border: 1px solid #cbd5e1;
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        .tabela-cabecalho th {
+            background-color: #f8fafc;
+            color: #334155;
+            font-weight: 600;
+            width: 28%;
+        }
+
+        .tabela-cabecalho input {
+            width: 100%;
+            border: none;
+            background: transparent;
+            font-family: inherit;
+            font-size: 13px;
+            color: #1e293b;
+            outline: none;
+        }
+
+        .secao-bloco {
+            margin-bottom: 25px;
+        }
+
+        /* Títulos em Negrito com Tom Azul Profissional e fundo levemente destacado */
+        .secao-titulo-bloco {
+            background-color: #f1f5f9;
+            color: #1d4ed8; /* Azul profissional */
+            padding: 8px 12px;
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-left: 4px solid #1d4ed8;
+            border-top: 1px solid #e2e8f0;
+            border-right: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 8px;
+        }
+
+        /* Área editável sem caixas pesadas (estilo documento limpo) */
+        .secao-conteudo-editavel {
+            border: none;
+            padding: 8px 4px;
+            min-height: 80px;
+            font-size: 13.5px;
+            line-height: 1.6;
+            background-color: transparent;
+            outline: none;
+            color: #1e293b;
+        }
+
+        .secao-conteudo-editavel:focus {
+            background-color: #fafbfc;
+            border-radius: 4px;
+        }
+
+        .area-assinatura {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .input-busca-container {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .campo-busca {
+            width: 60%;
+            padding: 8px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .btn-acao {
+            background-color: #1e293b;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-left: 8px;
+        }
+
+        .btn-acao:hover {
+            background-color: #0f172a;
+        }
+
+        /* Regras de Impressão: Sem caixas ou bordas extras nos blocos */
+        @media print {
+            @page { margin: 1.5cm; }
+            .no-print { display: none !important; }
+            .ocultar-impressao { display: none !important; }
+            body { background: white !important; padding: 0 !important; }
+            .pagina-relatorio { border: none !important; box-shadow: none !important; padding: 0 !important; margin: 0 !important; max-width: 100% !important; }
+            .secao-conteudo-editavel { border: none !important; background: transparent !important; }
+            .secao-titulo-bloco { background-color: #f8fafc !important; -webkit-print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print" style="max-width: 850px; margin: 20px auto;">
+        <a href="index.html" style="text-decoration: none;"><button type="button" style="padding: 8px 16px; background: #64748b; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">Voltar ao Menu Principal</button></a>
+    </div>
+
+    <div class="pagina-relatorio">
+        <!-- ÁREA DE BUSCA -->
+        <div class="input-busca-container no-print">
+            <h3 style="margin-top: 0; color: #1e293b; font-size: 15px;">Carregar Dados do Paciente</h3>
+            <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">Digite o nome do paciente para buscar registros ou edite livremente abaixo:</p>
+            <input type="text" id="nomePacienteBusca" class="campo-busca" placeholder="Nome completo do paciente...">
+            <button type="button" class="btn-acao" onclick="carregarDadosPaciente()">Carregar Dados</button>
+        </div>
+
+        <!-- CABEÇALHO PROFISSIONAL -->
+        <div class="cabecalho-minimalista">
+            <div>
+                <div class="titulo-doc">Relatório Clínico Fonoaudiológico</div>
+                <div class="sub-titulo-doc ocultar-impressao">FonoTech &bull; Prontuário e Monitoramento Terapêutico</div>
+            </div>
+            <div class="profissional-info">
+                <strong>Ingrid Cruz</strong><br>
+                Fonoaudióloga &bull; CRFa 8-13571
+            </div>
+        </div>
+
+        <!-- TABELA DE IDENTIFICAÇÃO EDITÁVEL -->
+        <table class="tabela-cabecalho">
+            <tr>
+                <th>TIPO DE DOCUMENTO:</th>
+                <td><input type="text" value="Relatório de Acompanhamento Terapêutico"></td>
+            </tr>
+            <tr>
+                <th>DATA DE EMISSÃO:</th>
+                <td><input type="text" id="inputData" value="14/09/2026"></td>
+            </tr>
+            <tr>
+                <th>PROFISSIONAL:</th>
+                <td><input type="text" value="Ingrid Cruz (CRFa 8-13571)"></td>
+            </tr>
+            <tr>
+                <th>NOME DO PACIENTE:</th>
+                <td><input type="text" id="inputNomePaciente" value="Clique para digitar o nome..."></td>
+            </tr>
+            <tr>
+                <th>HIPÓTESE DIAGNÓSTICA:</th>
+                <td><input type="text" value="Conforme avaliação fonoaudiológica especializada"></td>
+            </tr>
+        </table>
+
+        <!-- BLOCO 1: AVALIAÇÃO -->
+        <div class="secao-bloco">
+            <div class="secao-titulo-bloco">1. Descrição do Exame Clínico e Avaliação Especializada</div>
+            <div class="secao-conteudo-editavel" contenteditable="true">
+                Clique aqui para digitar a descrição do exame clínico e as avaliações realizadas...
+            </div>
+        </div>
+
+        <!-- BLOCO 2: PLANEJAMENTO -->
+        <div class="secao-bloco">
+            <div class="secao-titulo-bloco">2. Planejamento Terapêutico e Condutas</div>
+            <div class="secao-conteudo-editavel" contenteditable="true">
+                Clique aqui para digitar o planejamento terapêutico e as condutas clínicas...
+            </div>
+        </div>
+
+        <!-- BLOCO 3: EVOLUÇÕES -->
+        <div class="secao-bloco">
+            <div class="secao-titulo-bloco">3. Histórico de Evoluções Clínicas</div>
+            <div class="secao-conteudo-editavel" contenteditable="true">
+                Clique aqui para registrar as evoluções clínicas do paciente...
+            </div>
+        </div>
+
+        <!-- BLOCO 4: JOGOS / ATIVIDADES -->
+        <div class="secao-bloco">
+            <div class="secao-titulo-bloco">4. Monitoramento de Atividades e Treinos Específicos</div>
+            <div class="secao-conteudo-editavel" contenteditable="true" id="blocoJogos">
+                Clique aqui para detalhar o desempenho nos treinos específicos...
+            </div>
+        </div>
+
+        <!-- ASSINATURA -->
+        <div class="area-assinatura">
+            <p style="margin-bottom: 35px;">__________________________________________________</p>
+            <p><strong>Ingrid Cruz</strong><br>Fonoaudióloga &bull; CRFa 8-13571</p>
+        </div>
+
+        <!-- BOTÃO DE IMPRESSÃO -->
+        <div style="text-align: right; margin-top: 35px;" class="no-print">
+            <button type="button" onclick="window.print()" class="btn-acao" style="padding: 12px 24px; font-size: 14px;">Imprimir / Salvar em PDF</button>
+        </div>
+    </div>
+
+    <script>
+        const d = new Date();
+        document.getElementById('inputData').value = d.toLocaleDateString("pt-BR");
+
+        function carregarDadosPaciente() {
+            const nome = document.getElementById('nomePacienteBusca').value.trim();
+            if (!nome) {
+                alert("Por favor, informe o nome do paciente.");
+                return;
+            }
+
+            document.getElementById('inputNomePaciente').value = nome;
+
+            const chaveHist = "historico_" + nome.toLowerCase();
+            const historico = JSON.parse(localStorage.getItem(chaveHist)) || [];
+
+            if (historico.length > 0) {
+                let htmlJogos = "Histórico de Atividades e Treinos:<br><ul>";
+                historico.forEach(item => {
+                    htmlJogos += `<li>Data: ${item.data} | Atividade: ${item.jogo} — ${item.pontuacao}</li>`;
+                });
+                htmlJogos += "</ul>";
+                document.getElementById('blocoJogos').innerHTML = htmlJogos;
+            } else {
+                document.getElementById('blocoJogos').innerHTML = `Nenhum histórico de atividades registrado para ${nome}.`;
+            }
+
+            alert("Dados carregados com sucesso! Os campos estão prontos para edição.");
+        }
+    </script>
+</body>
+</html>

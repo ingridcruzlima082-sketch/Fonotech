@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Declaração de Atendimento - FonoTech</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .pagina-documento {
+            max-width: 800px;
+            margin: 20px auto 80px auto;
+            background: #fff;
+            padding: 50px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: #222;
+        }
+
+        .cabecalho-doc {
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-start;
+            border-bottom: 2px solid #005f73;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .dados-profissional {
+            text-align: right;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        .data-emissao {
+            text-align: right;
+            margin: 25px 0;
+            font-size: 15px;
+        }
+
+        .titulo-doc {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #005f73;
+            margin: 40px 0;
+            letter-spacing: 0.5px;
+        }
+
+        .conteudo-texto {
+            font-size: 16px;
+            line-height: 1.8;
+            text-align: justify;
+            margin-bottom: 50px;
+            outline: none;
+        }
+
+        .area-assinatura {
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        @media print {
+            @page { margin: 2cm; }
+            .no-print, button { display: none !important; }
+            body { background: white !important; padding: 0 !important; }
+            .pagina-documento { border: none !important; box-shadow: none !important; padding: 0 !important; margin: 0 !important; max-width: 100% !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print" style="max-width: 800px; margin: 10px auto;">
+        <a href="documentos.html"><button type="button">⬅️ Voltar aos Documentos</button></a>
+    </div>
+
+    <div class="pagina-documento">
+        <!-- CABEÇALHO PROFISSIONAL (APENAS DADOS) -->
+        <div class="cabecalho-doc">
+            <div class="dados-profissional">
+                <strong>Ingrid Cruz</strong><br>
+                Fonoaudióloga<br>
+                CRFa 8-13571
+            </div>
+        </div>
+
+        <!-- DATA -->
+        <div class="data-emissao" id="dataAtualTexto">
+            Natal, RN, 13 de Setembro de 2026.
+        </div>
+
+        <!-- TÍTULO -->
+        <div class="titulo-doc">
+            DECLARAÇÃO DE ATENDIMENTO FONOAUDIOLÓGICO
+        </div>
+
+        <!-- CORPO DA DECLARAÇÃO (EDITÁVEL DIRETAMENTE NA PÁGINA) -->
+        <div class="conteudo-texto" contenteditable="true">
+            Declaro para os devidos fins que o(a) paciente <strong>[Nome do Paciente]</strong> esteve sob atendimento fonoaudiológico nesta data, no horário das _____ às _____ horas, sob meus cuidados profissionais.
+        </div>
+
+        <!-- ASSINATURA -->
+        <div class="area-assinatura">
+            <p>__________________________________________________</p>
+            <p><strong>Ingrid Cruz</strong><br>Fonoaudióloga | CRFa 8-13571</p>
+        </div>
+
+        <!-- BOTÃO DE IMPRESSÃO -->
+        <div style="text-align: right; margin-top: 40px;" class="no-print">
+            <button type="button" onclick="window.print()" style="background-color: #005f73; color: white; padding: 12px 25px; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold;">🖨️ Imprimir / Salvar PDF</button>
+        </div>
+    </div>
+
+    <footer class="no-print" style="position: fixed; bottom: 0; left: 0; width: 100%; background: #005f73; color: white; text-align: center; padding: 10px;">
+        <p><strong>Ingrid Cruz</strong> | Fonoaudióloga | CRFa 8-13571</p>
+    </footer>
+
+    <script>
+        // Atualiza a data automaticamente por extenso
+        const meses = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
+        const d = new Date();
+        document.getElementById('dataAtualTexto').innerText = `Natal, RN, ${d.getDate()} de ${meses[d.getMonth()]} de ${d.getFullYear()}.`;
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Termo de Consentimento (TCLE) - FonoTech</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .container-doc { max-width: 800px; margin: 0 auto 80px auto; background: #fff; padding: 30px; border-radius: 12px; border: 1px solid #2b9348; }
+        .campo-texto { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-family: inherit; margin-top: 5px; }
+        @media print { .no-print, button { display: none !important; } }
+    </style>
+</head>
+<body>
+    <div class="no-print"><a href="documentos.html"><button type="button">⬅️ Voltar aos Documentos</button></a></div>
+    <div class="container-doc">
+        <h1 style="color: #2b9348; text-align: center;">✍️ Termo de Consentimento Livre e Esclarecido (TCLE)</h1>
+        <div style="margin-bottom: 15px;">
+            <label><strong>Nome do Paciente / Responsável:</strong></label>
+            <input type="text" id="nomeTCLE" class="campo-texto" placeholder="Nome completo">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label><strong>Termos do Consentimento:</strong></label>
+            <textarea id="textoTCLE" class="campo-texto" rows="6">Autorizo a realização da avaliação fonoaudiológica, bem como o processo de intervenção terapêutica e o registro de dados clínicos para fins de acompanhamento profissional.</textarea>
+        </div>
+        <div style="text-align: center; margin-top: 40px;">
+            <p>__________________________________________________</p>
+            <p>Assinatura do Paciente / Responsável</p>
+        </div>
+        <div style="text-align: center; margin-top: 30px;">
+            <p>__________________________________________________</p>
+            <p><strong>Ingrid Cruz</strong><br>Fonoaudióloga | CRFa 8-13571</p>
+        </div>
+        <div style="text-align: right; margin-top: 20px;" class="no-print">
+            <button type="button" onclick="window.print()" style="background-color: #2b9348; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer;">🖨️ Imprimir / Salvar PDF</button>
+        </div>
+    </div>
+    <footer class="no-print" style="position: fixed; bottom: 0; left: 0; width: 100%; background: #005f73; color: white; text-align: center; padding: 10px;">
+        <p><strong>Ingrid Cruz</strong> | Fonoaudióloga | CRFa 8-13571</p>
+    </footer>
+</body>
+</html>

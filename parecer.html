@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Parecer Fonoaudiológico - FonoTech</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .pagina-documento {
+            max-width: 800px;
+            margin: 20px auto 80px auto;
+            background: #fff;
+            padding: 50px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: #222;
+        }
+
+        .cabecalho-doc {
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-start;
+            border-bottom: 2px solid #005f73;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .dados-profissional {
+            text-align: right;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        .bloco-identificacao {
+            background-color: #f8f9fa;
+            border-left: 4px solid #005f73;
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+
+        .bloco-identificacao h3 {
+            margin: 0 0 10px 0;
+            font-size: 15px;
+            color: #005f73;
+            letter-spacing: 0.5px;
+        }
+
+        .campo-id {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+            margin-top: 4px;
+            box-sizing: border-box;
+        }
+
+        .titulo-doc {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #005f73;
+            margin: 30px 0;
+            letter-spacing: 0.5px;
+            text-decoration: underline;
+        }
+
+        .conteudo-texto {
+            font-size: 15px;
+            line-height: 1.8;
+            text-align: justify;
+            margin-bottom: 50px;
+            outline: none;
+            min-height: 250px;
+        }
+
+        .area-assinatura {
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        @media print {
+            @page { margin: 2cm; }
+            .no-print, button { display: none !important; }
+            body { background: white !important; padding: 0 !important; }
+            .pagina-documento { border: none !important; box-shadow: none !important; padding: 0 !important; margin: 0 !important; max-width: 100% !important; }
+            .campo-id { border: none !important; background: transparent !important; padding: 0 !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print" style="max-width: 800px; margin: 10px auto;">
+        <a href="documentos.html"><button type="button">⬅️ Voltar aos Documentos</button></a>
+    </div>
+
+    <div class="pagina-documento">
+        <!-- CABEÇALHO PROFISSIONAL -->
+        <div class="cabecalho-doc">
+            <div class="dados-profissional">
+                <strong>Ingrid Cruz</strong><br>
+                Fonoaudióloga<br>
+                CRFa 8-13571
+            </div>
+        </div>
+
+        <!-- DADOS DE IDENTIFICAÇÃO (Seguindo o modelo solicitado) -->
+        <div class="bloco-identificacao">
+            <h3>DADOS DE IDENTIFICAÇÃO</h3>
+            <div style="display: grid; grid-template-columns: 3fr 1fr; gap: 15px;">
+                <div>
+                    <label style="font-size: 13px; font-weight: bold;">NOME:</label>
+                    <input type="text" id="nomePaciente" class="campo-id" placeholder="Nome completo do paciente">
+                </div>
+                <div>
+                    <label style="font-size: 13px; font-weight: bold;">IDADE:</label>
+                    <input type="text" id="idadePaciente" class="campo-id" placeholder="Ex: 7 anos">
+                </div>
+            </div>
+        </div>
+
+        <!-- TÍTULO -->
+        <div class="titulo-doc">
+            PARECER FONOAUDIOLÓGICO
+        </div>
+
+        <!-- CORPO DO PARECER (EDITÁVEL) -->
+        <div class="conteudo-texto" contenteditable="true">
+            Ressaltamos que o(a) paciente <strong>[Nome]</strong>, de [Idade] de idade, encontra-se em atendimento fonoaudiológico sob nossos cuidados profissionais.<br><br>
+            O processo terapêutico teve início no mês de [Mês/Ano] e destacamos os aspectos relevantes observados nas sessões:<br>
+            - [Descrever achados clínicos, aspectos de linguagem, motricidade ou audição];<br>
+            - [Descrever evolução ou comportamentos comunicativos observados].<br><br>
+            De tal modo, destacamos que as sessões de fonoerapia têm como objetivo aprimorar as habilidades comunicativas, favorecendo a funcionalidade e a interação social do(a) paciente em diferentes situações.
+        </div>
+
+        <!-- ASSINATURA -->
+        <div class="area-assinatura">
+            <p>__________________________________________________</p>
+            <p><strong>Ingrid Cruz</strong><br>Fonoaudióloga | CRFa 8-13571</p>
+        </div>
+
+        <!-- BOTÃO DE IMPRESSÃO -->
+        <div style="text-align: right; margin-top: 40px;" class="no-print">
+            <button type="button" onclick="window.print()" style="background-color: #005f73; color: white; padding: 12px 25px; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold;">🖨️ Imprimir / Salvar PDF</button>
+        </div>
+    </div>
+
+    <footer class="no-print" style="position: fixed; bottom: 0; left: 0; width: 100%; background: #005f73; color: white; text-align: center; padding: 10px;">
+        <p><strong>Ingrid Cruz</strong> | Fonoaudióloga | CRFa 8-13571</p>
+    </footer>
+</body>
+</html>

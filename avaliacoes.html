@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Avaliações Clínicas - FonoTech</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .container-hub {
+            max-width: 950px;
+            margin: 40px auto;
+            background: rgba(255, 255, 255, 0.94);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+        }
+        .cabecalho-hub {
+            text-align: center;
+            border-bottom: 2px solid #E4D4F2;
+            padding-bottom: 25px;
+            margin-bottom: 35px;
+        }
+        .cabecalho-hub h1 {
+            color: #332940;
+            margin: 0 0 8px 0;
+            font-size: 30px;
+        }
+        .botoes-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        @media (max-width: 768px) { .botoes-grid { grid-template-columns: 1fr; } }
+        .botoes-grid a { text-decoration: none; display: flex; }
+        .botoes-grid button {
+            width: 100% !important;
+            height: 85px !important;
+            padding: 0 24px !important;
+            border: none !important;
+            border-radius: 16px !important;
+            font-size: 16px !important;
+            font-weight: 600 !important;
+            cursor: pointer !important;
+            transition: all 0.2s ease !important;
+            text-align: left !important;
+            display: flex !important;
+            align-items: center !important;
+            background-color: #E4D4F2 !important;
+            color: #432c59 !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02) !important;
+        }
+        .botoes-grid button:hover {
+            transform: translateY(-3px);
+            filter: brightness(0.97);
+        }
+    </style>
+</head>
+<body>
+    <div style="max-width: 950px; margin: 20px auto 0 auto;" class="no-print">
+        <a href="index.html" style="text-decoration: none;"><button type="button" style="padding: 10px 20px; background-color: #E4D4F2; color: #432c59; border: none; border-radius: 12px; font-weight: bold; cursor: pointer;">Voltar ao Menu Principal</button></a>
+    </div>
+
+    <div class="container-hub">
+        <div class="cabecalho-hub">
+            <h1>Protocolos de Avaliação Clínica</h1>
+            <p style="color: #6e627a; margin: 0;">Selecione o protocolo especializado para preenchimento e emissão de laudo técnico</p>
+        </div>
+
+        <div class="botoes-grid">
+            <a href="avaliacao_linguagem.html"><button type="button">Avaliação de Linguagem Infantil / Adulto</button></a>
+            <a href="avaliacao_gagueira.html"><button type="button">Protocolo de Avaliação de Fluência e Gagueira</button></a>
+            <a href="avaliacao_voz.html"><button type="button">Avaliação Vocal e Parâmetros Acústicos</button></a>
+            <a href="avaliacao_mo.html"><button type="button">Avaliação de Motricidade Orofacial</button></a>
+            <a href="avaliacao_afasia.html"><button type="button">Avaliação de Afasias e Linguagem Neurológica</button></a>
+            <a href="avaliacao_disfagia.html"><button type="button">Avaliação Funcional de Deglutição (Disfagia)</button></a>
+        </div>
+    </div>
+</body>
+</html>

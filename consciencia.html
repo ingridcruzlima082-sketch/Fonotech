@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Consciência Fonológica - FonoTech</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .painel-pergunta {
+            background-color: #ffffff;
+            border: 2px solid #7209b7;
+            border-radius: 12px;
+            padding: 20px;
+            max-width: 650px;
+            margin: 20px auto;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .emoji-destaque {
+            font-size: 70px;
+            margin: 10px 0;
+        }
+
+        .grid-alternativas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 15px;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        .card-resposta {
+            background-color: #ffffff;
+            border: 2px solid #7209b7;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .card-resposta:hover {
+            background-color: #f3e8ff;
+            transform: scale(1.03);
+        }
+
+        .card-resposta div {
+            font-size: 45px;
+        }
+
+        .card-resposta p {
+            font-size: 15px;
+            font-weight: bold;
+            color: #7209b7;
+            margin: 5px 0 0 0;
+        }
+
+        .painel-sessao-destaque {
+            background-color: #fff3bf;
+            border: 1px solid #ffe066;
+            border-radius: 8px;
+            padding: 10px 15px;
+            display: inline-block;
+            margin-top: 10px;
+            color: #856404;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="no-print" style="display: flex; justify-content: space-between; align-items: center;">
+        <a href="jogos.html">
+            <button type="button">⬅️ Voltar aos Jogos</button>
+        </a>
+    </div>
+
+    <h1 style="text-align: center; color: #7209b7;">🔤 Jogo de Consciência Fonológica</h1>
+    <p style="text-align: center;">Identifique rimas, sons iniciais e estruturas silábicas para o desenvolvimento da leitura e escrita!</p>
+
+    <!-- IDENTIFICAÇÃO DO PACIENTE E PAINEL DE SESSÕES -->
+    <div style="text-align: center; margin-bottom: 20px;" class="no-print">
+        <label for="pacienteJogo"><strong>Paciente:</strong></label>
+        <input type="text" id="pacienteJogo" placeholder="Digite o nome do paciente" style="width: 250px; display: inline-block;" oninput="verificarSessoesAnteriores()">
+        <button onclick="iniciarPartida()" style="background-color: #7209b7;">🚀 Iniciar Partida (12 Questões)</button>
+
+        <br>
+        <div id="painelInfoSessao" class="painel-sessao-destaque" style="display: none;"></div>
+    </div>
+
+    <!-- ÁREA DO JOGO -->
+    <div id="areaJogo" style="display: none;">
+
+        <div style="display: flex; justify-content: space-around; align-items: center; max-width: 650px; margin: 0 auto;">
+            <div>
+                <h3>🎯 Questão: <span id="numeroRodada" style="color: #7209b7;">1</span>/12</h3>
+            </div>
+            <div>
+                <h3>🏆 Acertos: <span id="contadorAcertos" style="color: #2a9d8f;">0</span></h3>
+            </div>
+        </div>
+
+        <!-- PAINEL PRINCIPAL -->
+        <div class="painel-pergunta">
+            <div id="emojiAlvo" class="emoji-destaque">❓</div>
+            <h2 id="textoPergunta" style="color: #7209b7; font-size: 20px; margin-top: 5px;"></h2>
+        </div>
+
+        <p style="text-align: center; font-weight: bold; color: #333;">Selecione a resposta correta:</p>
+
+        <!-- ALTERNATIVAS -->
+        <div class="grid-alternativas" id="containerAlternativas"></div>
+    </div>
+
+    <script>
+        const nomeDoJogoAtual = "Consciência Fonológica";
+
+        // BANCO DE 12 QUESTÕES DE CONSCIÊNCIA FONOLÓGICA
+        const questoes = [
+            { emoji: "🦁", palavra: "LEÃO", pergunta: "Qual palavra RIMA com LEÃO?", opcoes: [{ emoji: "✈️", palavra: "AVIÃO", correta: true }, { emoji: "🐱", palavra: "GATO", correta: false }, { emoji: "🍎", palavra: "MAÇÃ", correta: false }] },
+            { emoji: "🍌", palavra: "BANANA", pergunta: "Qual figura começa com o MESMO SOM (BA) de BANANA?", opcoes: [{ emoji: "🚗", palavra: "CARRO", correta: false }, { emoji: "⚽", palavra: "BOLA", correta: true }, { emoji: "🐸", palavra: "SAPO", correta: false }] },
+            { emoji: "🐱", palavra: "GATO", pergunta: "Qual palavra começa com o MESMO SOM (GA) de GATO?", opcoes: [{ emoji: "🐓", palavra: "GALO", correta: true }, { emoji: "🐶", palavra: "CACHORRO", correta: false }, { emoji: "🍪", palavra: "BISCOITO", correta: false }] },
+            { emoji: "🍎", palavra: "MAÇÃ", pergunta: "Qual palavra RIMA com MAÇÃ?", opcoes: [{ emoji: "🐸", palavra: "SAPO", correta: false }, { emoji: "🐸", palavra: "RÃ", correta: true }, { emoji: "☀️", palavra: "SOL", correta: false }] },
+            { emoji: "🔑", palavra: "CHAVE", pergunta: "Qual palavra começa com o MESMO SOM (CHA) de CHAVE?", opcoes: [{ emoji: "🧃", palavra: "SUCO", correta: false }, { emoji: "☕", palavra: "CHÁ", correta: true }, { emoji: "🦁", palavra: "LEÃO", correta: false }] },
+            { emoji: "⚽", palavra: "BOLA", pergunta: "Qual palavra RIMA com BOLA?", opcoes: [{ emoji: "📱", palavra: "SACOLA", correta: true }, { emoji: "🚗", palavra: "CARRO", correta: false }, { emoji: "🍌", palavra: "BANANA", correta: false }] },
+            { emoji: "🐸", palavra: "SAPO", pergunta: "Qual palavra começa com o MESMO SOM (SA) de SAPO?", opcoes: [{ emoji: "👟", palavra: "SAPATO", correta: true }, { emoji: "🐟", palavra: "PEIXE", correta: false }, { emoji: "🔑", palavra: "CHAVE", correta: false }] },
+            { emoji: "🚗", palavra: "CARRO", pergunta: "Qual palavra RIMA com CARRO?", opcoes: [{ emoji: "🛞", palavra: "BARRO / JARRO", correta: true }, { emoji: "⚽", palavra: "BOLA", correta: false }, { emoji: "🐱", palavra: "GATO", correta: false }] },
+            { emoji: "☀️", palavra: "SOL", pergunta: "Qual palavra RIMA com SOL?", opcoes: [{ emoji: "🌻", palavra: "GIRASSOL", correta: true }, { emoji: "✈️", palavra: "AVIÃO", correta: false }, { emoji: "🍌", palavra: "BANANA", correta: false }] },
+            { emoji: "🐟", palavra: "PEIXE", pergunta: "Qual palavra começa com o MESMO SOM (PE) de PEIXE?", opcoes: [{ emoji: "⚽", palavra: "PELOTA", correta: true }, { emoji: "🦁", palavra: "LEÃO", correta: false }, { emoji: "🍎", palavra: "MAÇÃ", correta: false }] },
+            { emoji: "🍪", palavra: "BISCOITO", pergunta: "Qual palavra RIMA com BISCOITO?", opcoes: [{ emoji: "🎈", palavra: "APITO", correta: true }, { emoji: "🚗", palavra: "CARRO", correta: false }, { emoji: "🔑", palavra: "CHAVE", correta: false }] },
+            { emoji: "✈️", palavra: "AVIÃO", pergunta: "Qual palavra começa com o MESMO SOM (A) de AVIÃO?", opcoes: [{ emoji: "💍", palavra: "ANEL", correta: true }, { emoji: "⚽", palavra: "BOLA", correta: false }, { emoji: "🐱", palavra: "GATO", correta: false }] }
+        ];
+
+        let acertos = 0;
+        let rodadaAtual = 0;
+        const totalRodadas = 12;
+        let numeroProximaSessao = 1;
+
+        function verificarSessoesAnteriores() {
+            let nome = document.getElementById("pacienteJogo").value.trim();
+            let painel = document.getElementById("painelInfoSessao");
+
+            if (nome === "") {
+                painel.style.display = "none";
+                return;
+            }
+
+            let chave = "historico_" + nome.toLowerCase();
+            let historicoGeral = JSON.parse(localStorage.getItem(chave)) || [];
+            let historicoDoJogo = historicoGeral.filter(r => r.jogo === nomeDoJogoAtual);
+            
+            numeroProximaSessao = historicoDoJogo.length + 1;
+
+            painel.style.display = "inline-block";
+            if (historicoDoJogo.length === 0) {
+                painel.innerHTML = "📌 Primeira sessão de <strong>" + nomeDoJogoAtual + "</strong> para " + nome + "!";
+            } else {
+                painel.innerHTML = "📊 <strong>" + nome + "</strong> já realizou " + historicoDoJogo.length + " sessão(ões) de <strong>" + nomeDoJogoAtual + "</strong>. Iniciando a <strong>Sessão Nº " + numeroProximaSessao + "</strong>!";
+            }
+        }
+
+        function iniciarPartida() {
+            let nome = document.getElementById("pacienteJogo").value.trim();
+            if (nome === "") {
+                alert("Por favor, digite o nome do paciente antes de iniciar.");
+                return;
+            }
+
+            verificarSessoesAnteriores();
+
+            acertos = 0;
+            rodadaAtual = 0;
+            document.getElementById("contadorAcertos").innerText = acertos;
+            document.getElementById("areaJogo").style.display = "block";
+
+            proximaRodada();
+        }
+
+        function proximaRodada() {
+            rodadaAtual++;
+
+            if (rodadaAtual > totalRodadas) {
+                finalizarSessao();
+                return;
+            }
+
+            document.getElementById("numeroRodada").innerText = rodadaAtual;
+
+            let q = questoes[rodadaAtual - 1];
+            document.getElementById("emojiAlvo").innerText = q.emoji;
+            document.getElementById("textoPergunta").innerText = q.pergunta;
+
+            let container = document.getElementById("containerAlternativas");
+            container.innerHTML = "";
+
+            let opcoesEmbaralhadas = [...q.opcoes].sort(() => 0.5 - Math.random());
+
+            opcoesEmbaralhadas.forEach(op => {
+                let card = document.createElement("div");
+                card.className = "card-resposta";
+                card.innerHTML = `
+                    <div>${op.emoji}</div>
+                    <p>${op.palavra}</p>
+                `;
+                card.onclick = () => verificarEscolha(op.correta);
+                container.appendChild(card);
+            });
+        }
+
+        function verificarEscolha(isCorreta) {
+            if (isCorreta) {
+                acertos++;
+                document.getElementById("contadorAcertos").innerText = acertos;
+                alert("✨ Muito bem! Associação fonológica correta!");
+            } else {
+                alert("❌ Ops! Essa palavra não combina com o som solicitado.");
+            }
+
+            proximaRodada();
+        }
+
+        function finalizarSessao() {
+            let nome = document.getElementById("pacienteJogo").value.trim();
+            let chave = "historico_" + nome.toLowerCase();
+
+            let historicoGeral = JSON.parse(localStorage.getItem(chave)) || [];
+
+            historicoGeral.push({
+                sessao: numeroProximaSessao,
+                jogo: nomeDoJogoAtual,
+                pontuacao: acertos + " de " + totalRodadas,
+                data: new Date().toLocaleDateString("pt-BR")
+            });
+
+            localStorage.setItem(chave, JSON.stringify(historicoGeral));
+
+            alert("🎉 Fim de jogo!\n\nPaciente: " + nome + "\nHabilidade: " + nomeDoJogoAtual + "\nSessão: Nº " + numeroProximaSessao + "\nPontuação Final: " + acertos + " acertos em 12 questões.");
+            
+            verificarSessoesAnteriores();
+            document.getElementById("areaJogo").style.display = "none";
+        }
+    </script>
+
+</body>
+
+</html>

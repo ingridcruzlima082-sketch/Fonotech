@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Receituário Fonoaudiológico - FonoTech</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .pagina-documento {
+            max-width: 800px;
+            margin: 20px auto 80px auto;
+            background: #fff;
+            padding: 50px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: #222;
+        }
+
+        .cabecalho-doc {
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-start;
+            border-bottom: 2px solid #7209b7;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .dados-profissional {
+            text-align: right;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        .data-emissao {
+            text-align: right;
+            margin: 25px 0;
+            font-size: 15px;
+        }
+
+        .titulo-doc {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #7209b7;
+            margin: 30px 0;
+            letter-spacing: 0.5px;
+        }
+
+        .bloco-paciente {
+            margin-bottom: 25px;
+            font-size: 15px;
+        }
+
+        .campo-paciente {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 15px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        .conteudo-prescricao {
+            font-size: 16px;
+            line-height: 1.8;
+            text-align: justify;
+            min-height: 250px;
+            margin-bottom: 50px;
+            outline: none;
+            border-top: 1px dashed #ddd;
+            border-bottom: 1px dashed #ddd;
+            padding: 20px 0;
+        }
+
+        .modelos-rapidos {
+            background-color: #f8f9fa;
+            border: 1px dashed #7209b7;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .btn-modelo {
+            background-color: #e0aaff;
+            color: #3c096c;
+            border: 1px solid #7209b7;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 3px;
+        }
+
+        .area-assinatura {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        @media print {
+            @page { margin: 2cm; }
+            .no-print, button { display: none !important; }
+            body { background: white !important; padding: 0 !important; }
+            .pagina-documento { border: none !important; box-shadow: none !important; padding: 0 !important; margin: 0 !important; max-width: 100% !important; }
+            .campo-paciente { border: none !important; background: transparent !important; padding: 0 !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print" style="max-width: 800px; margin: 10px auto;">
+        <a href="documentos.html"><button type="button">⬅️ Voltar aos Documentos</button></a>
+    </div>
+
+    <div class="pagina-documento">
+        <!-- CABEÇALHO PROFISSIONAL -->
+        <div class="cabecalho-doc">
+            <div class="dados-profissional">
+                <strong>Ingrid Cruz</strong><br>
+                Fonoaudióloga<br>
+                CRFa 8-13571
+            </div>
+        </div>
+
+        <!-- MODELOS RÁPIDOS DE EXERCÍCIOS -->
+        <div class="modelos-rapidos no-print">
+            <strong>⚡ Modelos Rápidos de Prescrição:</strong><br>
+            <button class="btn-modelo" onclick="inserirModelo('mo')">👄 Motricidade Orofacial</button>
+            <button class="btn-modelo" onclick="inserirModelo('voz')">🎙️ Higiene Vocal</button>
+            <button class="btn-modelo" onclick="inserirModelo('fala')">🗣️ Treino de Fala</button>
+            <button class="btn-modelo" onclick="inserirModelo('linguagem')">🧩 Linguagem</button>
+        </div>
+
+        <!-- DATA -->
+        <div class="data-emissao" id="dataAtualTexto">
+            Natal, RN, 13 de Setembro de 2026.
+        </div>
+
+        <!-- TÍTULO -->
+        <div class="titulo-doc">
+            RECEITUÁRIO FONOAUDIOLÓGICO
+        </div>
+
+        <!-- IDENTIFICAÇÃO DO PACIENTE -->
+        <div class="bloco-paciente">
+            <label><strong>Paciente:</strong></label>
+            <input type="text" id="nomePaciente" class="campo-paciente" placeholder="Digite o nome completo do paciente...">
+        </div>
+
+        <!-- CORPO DA PRESCRIÇÃO (EDITÁVEL DIRETAMENTE) -->
+        <div class="conteudo-prescricao" contenteditable="true" id="textoPrescricao">
+            <strong>Prescrição de Exercícios e Orientações Domiciliares:</strong><br><br>
+            1. [Descrever o exercício ou conduta fonoaudiológica];<br>
+            2. Frequência: [Ex: 2 vezes ao dia];<br>
+            3. Orientações gerais para a família/paciente.
+        </div>
+
+        <!-- ASSINATURA -->
+        <div class="area-assinatura">
+            <p>__________________________________________________</p>
+            <p><strong>Ingrid Cruz</strong><br>Fonoaudióloga | CRFa 8-13571</p>
+        </div>
+
+        <!-- BOTOES DE AÇÃO -->
+        <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 40px;" class="no-print">
+            <button type="button" onclick="salvarReceituario()" style="background-color: #2b9348; color: white; padding: 12px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">💾 Salvar no Histórico</button>
+            <button type="button" onclick="window.print()" style="background-color: #7209b7; color: white; padding: 12px 25px; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold;">🖨️ Imprimir / Salvar PDF</button>
+        </div>
+    </div>
+
+    <footer class="no-print" style="position: fixed; bottom: 0; left: 0; width: 100%; background: #005f73; color: white; text-align: center; padding: 10px;">
+        <p><strong>Ingrid Cruz</strong> | Fonoaudióloga | CRFa 8-13571</p>
+    </footer>
+
+    <script>
+        // Data por extenso automática
+        const meses = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
+        const d = new Date();
+        document.getElementById('dataAtualTexto').innerText = `Natal, RN, ${d.getDate()} de ${meses[d.getMonth()]} de ${d.getFullYear()}.`;
+
+        const modelos = {
+            mo: "<strong>PRESCRIÇÃO DE EXERCÍCIOS MIOFUNCIONAIS:</strong><br><br>1. Estalar a língua no palato: 3 séries de 10 repetições.<br>2. Vedações labiais sustentadas: Manter lábios vedados por 30 segundos (3x ao dia).<br>3. Lateralização de língua: 3 séries de 8 repetições cada lado.<br><br><strong>Frequência:</strong> Realizar diariamente.",
+            voz: "<strong>ORIENTAÇÕES E EXERCÍCIOS VOCAIS:</strong><br><br>1. Vibração de lábios (TVSOH): 3 séries de 15 segundos.<br>2. Fonação em canudo: Soprar emitindo som suave.<br>3. Ingerir água regularmente ao longo do dia.<br>4. Evitar pigarrear ou forçar a emissão vocal.",
+            fala: "<strong>TREINO DE FALA E ARTICULAÇÃO:</strong><br><br>1. Repetição de palavras-alvo no espelho (3x ao dia).<br>2. Leitura articulada em voz alta (5 minutos diários).<br>3. Emissão de frases curtas com apoio visual.",
+            linguagem: "<strong>ORIENTAÇÕES PARA ESTIMULAÇÃO DE LINGUAGEM:</strong><br><br>1. Leitura compartilhada de histórias diariamente.<br>2. Nomeação de objetos e ações durante as rotinas diárias.<br>3. Estabelecer contato visual antes de iniciar as solicitações."
+        };
+
+        function inserirModelo(tipo) {
+            document.getElementById('textoPrescricao').innerHTML = modelos[tipo];
+        }
+
+        function salvarReceituario() {
+            const nome = document.getElementById('nomePaciente').value.trim();
+            if (!nome) {
+                alert("⚠️ Por favor, informe o nome do paciente antes de salvar!");
+                return;
+            }
+
+            const chave = "historico_" + nome.toLowerCase();
+            const historico = JSON.parse(localStorage.getItem(chave)) || [];
+
+            historico.push({
+                jogo: "Receituário Fonoaudiológico",
+                sessao: historico.length + 1,
+                pontuacao: "Prescrição emitida e registrada",
+                data: new Date().toLocaleDateString("pt-BR")
+            });
+
+            localStorage.setItem(chave, JSON.stringify(historico));
+            alert(`✅ Receituário salvo no histórico do paciente ${nome}!`);
+        }
+    </script>
+</body>
+</html>
