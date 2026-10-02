@@ -1,0 +1,135 @@
+/* Importação da tipografia refinada estilo Alice (Playfair Display & Lora) */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,600;1,400&display=swap');
+
+/* Variáveis Globais da Paleta FonoTech */
+:root {
+    --bg-pastel-petal: #FFCFE2; /* Fundo geral */
+    --burgundy: #581C23;        /* Títulos, textos principais e elementos fortes */
+    --pale-amber: #CDD98D;      /* Cards, caixas de destaque e fundos secundários */
+    --blazing-flame: #F33F0A;   /* Botões de ação, destaque e hover */
+    --card-bg: #FFFDF9;         /* Fundo dos containers centrais */
+}
+
+body {
+    background-color: var(--bg-pastel-petal) !important;
+    font-family: 'Lora', serif !important;
+    color: var(--burgundy) !important;
+    margin: 0;
+    padding: 20px;
+}
+
+h1, h2, h3, h4, .cabecalho-hub h1, .secao-grid h2 {
+    font-family: 'Playfair Display', serif !important;
+    color: var(--burgundy) !important;
+    letter-spacing: 0.5px;
+}
+
+/* Containers principais e hubs de navegação */
+.container-hub, .container {
+    max-width: 1000px;
+    margin: 30px auto;
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(88, 28, 35, 0.08);
+    border: 2px solid var(--pale-amber);
+}
+
+.cabecalho-hub {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.cabecalho-hub h1 {
+    font-size: 34px;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.cabecalho-hub p, p.sub {
+    color: #713f12;
+    font-size: 15.5px;
+    font-style: italic;
+}
+
+/* Seções e Grelhas */
+.secao-grid {
+    margin-bottom: 35px;
+}
+
+.secao-grid h2 {
+    border-bottom: 2px solid var(--pale-amber);
+    padding-bottom: 8px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.botoes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 15px;
+}
+
+.botoes-grid a {
+    text-decoration: none;
+}
+
+/* Padronização de todos os botões e links de cards do site */
+.botoes-grid button, .btn-opcao, .bloco-silaba {
+    width: 100% !important;
+    min-height: 75px !important;
+    padding: 0 20px !important;
+    border-radius: 16px !important;
+    font-size: 14.5px !important;
+    font-family: 'Lora', serif !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.25s ease-in-out !important;
+    text-align: left !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    border: 1.5px solid var(--pale-amber) !important;
+    box-shadow: 0 4px 12px rgba(88, 28, 35, 0.05) !important;
+    background-color: var(--pale-amber) !important;
+    color: var(--burgundy) !important;
+}
+
+.botoes-grid button:hover, .btn-opcao:hover {
+    transform: translateY(-3px) !important;
+    background-color: var(--blazing-flame) !important;
+    color: #FFFDF9 !important;
+    border-color: var(--blazing-flame) !important;
+    box-shadow: 0 6px 18px rgba(243, 63, 10, 0.2) !important;
+}
+
+/* Botões de Voltar e Ações do Topo */
+.no-print a button, .btn-voltar-topo {
+    background-color: var(--burgundy) !important;
+    color: var(--bg-pastel-petal) !important;
+    border-radius: 12px !important;
+    padding: 10px 20px !important;
+    font-family: 'Lora', serif !important;
+    font-weight: bold !important;
+    border: none !important;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(88, 28, 35, 0.1);
+    transition: 0.2s;
+}
+
+.no-print a button:hover, .btn-voltar-topo:hover {
+    background-color: var(--blazing-flame) !important;
+    color: white !important;
+}
+
+footer {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--burgundy);
+    border-top: 1px solid rgba(205, 217, 141, 0.5);
+    padding-top: 20px;
+    font-style: italic;
+}

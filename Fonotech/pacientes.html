@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gestão de Pacientes - FonoTech</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .tabela-pacientes {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .tabela-pacientes th, .tabela-pacientes td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tabela-pacientes th {
+            background-color: #005f73;
+            color: white;
+            font-weight: 600;
+        }
+
+        .tabela-pacientes tr:hover {
+            background-color: #f1f8f9;
+        }
+
+        .btn-acao {
+            padding: 6px 12px;
+            font-size: 13px;
+            margin: 2px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- CABEÇALHO E NAVEGAÇÃO -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;" class="no-print">
+        <a href="index.html">
+            <button type="button">⬅️ Voltar ao Menu</button>
+        </a>
+
+        <button onclick="window.print()" style="background-color: #28a745; font-weight: bold;">
+            🖨️ Imprimir Lista de Pacientes
+        </button>
+    </div>
+
+    <h1>👥 Cadastro e Gestão de Pacientes</h1>
+    <p class="no-print">Cadastre os dados cadastrais dos pacientes para controle clínico no FonoTech.</p>
+
+    <!-- FORMULÁRIO DE CADASTRO -->
+    <div class="card-conteudo no-print" style="margin-bottom: 30px;">
+        <h2 style="color: #005f73; margin-top: 0;">➕ Novo Cadastro</h2>
+        <form id="formCadastroPaciente">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div>
+                    <label for="nomePaciente"><strong>Nome Completo:</strong></label><br>
+                    <input type="text" id="nomePaciente" placeholder="Ex: Danielly Lais Alves de Lima">
+                </div>
+                <div>
+                    <label for="dataNascimento"><strong>Data de Nascimento:</strong></label><br>
+                    <input type="date" id="dataNascimento">
+                </div>
+                <div>
+                    <label for="responsavel"><strong>Nome do Responsável:</strong></label><br>
+                    <input type="text" id="responsavel" placeholder="Ex: Maria Alves">
+                </div>
+                <div>
+                    <label for="telefone"><strong>Telefone de Contato:</strong></label><br>
+                    <input type="text" id="telefone" placeholder="Ex: (84) 99999-9999">
+                </div>
+                <div style="grid-column: span 2;">
+                    <label for="diagnostico"><strong>Diagnóstico / Demandas Clínicas:</strong></label><br>
+                    <input type="text" id="diagnostico" placeholder="Ex: Transtorno do Espectro Autista (TEA) - CID 10 F84.0" style="max-width: 100%;">
+                </div>
+            </div>
+
+            <br>
+            <button type="button" onclick="salvarPaciente()" style="background-color: #005f73;">💾 Cadastrar Paciente</button>
+        </form>
+    </div>
+
+    <!-- TABELA DE PACIENTES CADASTRADOS -->
+    <h2 style="color: #005f73;">📋 Pacientes Cadastrados</h2>
+    <div id="containerTabela">
+        <table class="tabela-pacientes">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Data de Nasc.</th>
+                    <th>Responsável</th>
+                    <th>Contato</th>
+                    <th>Diagnóstico</th>
+                    <th class="no-print">Ações</th>
+                </tr>
+            </thead>
+            <tbody id="corpoTabelaPacientes">
+                <!-- LINHAS PREENCHIDAS VIA JAVASCRIPT -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Carrega a lista de pacientes ao abrir a página
+        document.addEventListener("DOMContentLoaded", listarPacientes);
+
+        function salvarPaciente() {
+            let nome = document.getElementById("nomePaciente").value.trim();
+            let nascimento = document.getElementById("dataNascimento").value;
+            let responsavel = document.getElementById("responsavel").value.trim();
+            let telefone = document.getElementById("telefone").value.trim();
+            let diagnostico = document.getElementById("diagnostico").value.trim();
+
+            if (nome === "") {
+                alert("Por favor, preencha o nome do paciente.");
+                return;
+            }
+
+            // Formata a data para exibição pt-BR se preenchida
+            let dataFormatada = nascimento ? new Date(nascimento + "T00:00:00").toLocaleDateString("pt-BR") : "-";
+
+            let novoPaciente = {
+                id: Date.now(),
+                nome: nome,
+                nascimento: dataFormatada,
+                nascimentoRaw: nascimento,
+                responsavel: responsavel || "-",
+                telefone: telefone || "-",
+                diagnostico: diagnostico || "-"
+            };
+
+            let pacientes = JSON.parse(localStorage.getItem("lista_pacientes")) || [];
+            
+            // Verifica se o paciente já está cadastrado pelo nome
+            let indexExistente = pacientes.findIndex(p => p.nome.toLowerCase() === nome.toLowerCase());
+
+            if (indexExistente !== -1) {
+                pacientes[indexExistente] = novoPaciente;
+                alert("Dados do paciente " + nome + " atualizados com sucesso!");
+            } else {
+                pacientes.push(novoPaciente);
+                alert("Paciente " + nome + " cadastrado com sucesso!");
+            }
+
+            localStorage.setItem("lista_pacientes", JSON.stringify(pacientes));
+            
+            // Limpa o formulário e atualiza a lista
+            document.getElementById("formCadastroPaciente").reset();
+            listarPacientes();
+        }
+
+        function listarPacientes() {
+            let pacientes = JSON.parse(localStorage.getItem("lista_pacientes")) || [];
+            let tbody = document.getElementById("corpoTabelaPacientes");
+            tbody.innerHTML = "";
+
+            if (pacientes.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #777;"><em>Nenhum paciente cadastrado ainda.</em></td></tr>`;
+                return;
+            }
+
+            pacientes.forEach(p => {
+                let tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td><strong>${p.nome}</strong></td>
+                    <td>${p.nascimento}</td>
+                    <td>${p.responsavel}</td>
+                    <td>${p.telefone}</td>
+                    <td>${p.diagnostico}</td>
+                    <td class="no-print">
+                        <button class="btn-acao" style="background-color: #0a9396;" onclick="editarPaciente(${p.id})">✏️ Editar</button>
+                        <button class="btn-acao" style="background-color: #d90429;" onclick="removerPaciente(${p.id})">🗑️ Excluir</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function editarPaciente(id) {
+            let pacientes = JSON.parse(localStorage.getItem("lista_pacientes")) || [];
+            let p = pacientes.find(item => item.id === id);
+
+            if (p) {
+                document.getElementById("nomePaciente").value = p.nome;
+                document.getElementById("dataNascimento").value = p.nascimentoRaw || "";
+                document.getElementById("responsavel").value = p.responsavel === "-" ? "" : p.responsavel;
+                document.getElementById("telefone").value = p.telefone === "-" ? "" : p.telefone;
+                document.getElementById("diagnostico").value = p.diagnostico === "-" ? "" : p.diagnostico;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function removerPaciente(id) {
+            if (confirm("Tem certeza que deseja remover este paciente da lista?")) {
+                let pacientes = JSON.parse(localStorage.getItem("lista_pacientes")) || [];
+                pacientes = pacientes.filter(item => item.id !== id);
+                localStorage.setItem("lista_pacientes", JSON.stringify(pacientes));
+                listarPacientes();
+            }
+        }
+    </script>
+
+</body>
+
+</html>

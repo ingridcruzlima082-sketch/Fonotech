@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>ABFW Vocabulário - Protocolo de Respostas - FonoTech</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .pagina-doc { 
+            max-width: 1000px; 
+            margin: 30px auto; 
+            background: #fff; 
+            padding: 40px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06); 
+            font-family: 'Helvetica Neue', Arial, sans-serif; 
+            color: #222; 
+        }
+        .cabecalho-doc { 
+            border-bottom: 1.5px solid #1e293b; 
+            padding-bottom: 12px; 
+            margin-bottom: 15px; 
+            text-align: center;
+        }
+        .legenda-siglas {
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 11.5px;
+            color: #334155;
+            line-height: 1.5;
+        }
+        .legenda-siglas strong {
+            color: #1e293b;
+        }
+        .tabela-info { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-bottom: 15px; 
+            font-size: 13px; 
+        }
+        .tabela-info th, .tabela-info td { 
+            border: 1px solid #1e293b; 
+            padding: 6px 10px; 
+            text-align: left; 
+        }
+        .tabela-info th { 
+            background-color: #f1f5f9; 
+            color: #1e293b; 
+        }
+        .tabela-info input { 
+            width: 100%; 
+            border: none; 
+            background: transparent; 
+            font-family: inherit; 
+            font-size: 13px; 
+            outline: none; 
+        }
+        .painel-resumo {
+            background-color: #fef08a;
+            border: 1px solid #ca8a04;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 13.5px;
+            font-weight: bold;
+            color: #713f12;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .secao-titulo { 
+            background-color: #e2e8f0; 
+            color: #1e293b; 
+            padding: 6px 10px; 
+            font-size: 13px; 
+            font-weight: bold; 
+            text-transform: uppercase; 
+            border: 1px solid #1e293b; 
+            margin-top: 20px; 
+            margin-bottom: -1px; 
+        }
+        .tabela-vocab { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-bottom: 15px; 
+            font-size: 12px; 
+        }
+        .tabela-vocab th, .tabela-vocab td { 
+            border: 1px solid #cbd5e1; 
+            padding: 5px 8px; 
+            text-align: left; 
+        }
+        .tabela-vocab th { 
+            background-color: #f8fafc; 
+            color: #334155; 
+            text-align: center; 
+        }
+        .tabela-vocab input { 
+            width: 100%; 
+            border: none; 
+            background: transparent; 
+            font-family: inherit; 
+            font-size: 12px; 
+            outline: none; 
+            text-align: center;
+        }
+        .grid-duplo {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 800px) {
+            .grid-duplo { grid-template-columns: 1fr; }
+        }
+        .status-salvamento {
+            font-size: 12px;
+            color: #15803d;
+            font-weight: 600;
+            background: #dcfce7;
+            padding: 4px 10px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+        @media print { 
+            .no-print { display: none !important; } 
+            body { background: white !important; padding: 0 !important; } 
+            .pagina-doc { box-shadow: none !important; margin: 0 !important; max-width: 100% !important; padding: 10px !important; } 
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print" style="max-width: 1000px; margin: 20px auto; display: flex; justify-content: space-between; align-items: center;">
+        <a href="avaliacoes.html"><button style="padding: 8px 16px; background: #64748b; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">⬅️ Voltar</button></a>
+        <div id="statusAutoSave" class="status-salvamento">💾 Salvamento automático ativo</div>
+    </div>
+
+    <div class="pagina-doc">
+        <div class="cabecalho-doc">
+            <div style="font-size: 11px; font-weight: bold; color: #64748b;">ABFW – TESTE DE LINGUAGEM INFANTIL (NAS ÁREAS DE FONOLOGIA, VOCABULÁRIO, FLUÊNCIA E PRAGMÁTICA)</div>
+            <div style="font-size: 16px; font-weight: bold; color: #1e293b; margin-top: 4px;">CAPÍTULO 2 - VOCABULÁRIO (Débora Maria Befi-Lopes)</div>
+            <div style="font-size: 13px; font-weight: bold; color: #1d4ed8; margin-top: 2px;">ANEXO 1 — Protocolo de Registro de Respostas</div>
+        </div>
+
+        <!-- LEGENDA DE ORIENTAÇÃO DAS SIGLAS -->
+        <div class="legenda-siglas no-print">
+            <strong>💡 Guia de Orientação para Aplicação:</strong><br>
+            • <strong>DVU:</strong> Designação Verbal Usual &nbsp;|&nbsp; 
+            • <strong>ND:</strong> Não Designação &nbsp;|&nbsp; 
+            • <strong>PS:</strong> Processo de Substituição &nbsp;|&nbsp; 
+            • <strong>Tipologia:</strong> Classificação do tipo de substituição.
+        </div>
+
+        <!-- IDENTIFICAÇÃO -->
+        <table class="tabela-info">
+            <tr>
+                <td style="width: 45%;"><strong>Nome:</strong> <input type="text" id="abfw_nome" class="salvavel" placeholder="Nome completo..."></td>
+                <td style="width: 25%;"><strong>Data de Nasc.:</strong> <input type="text" id="abfw_nasc" class="salvavel" placeholder="DD/MM/AAAA"></td>
+                <td style="width: 12%;"><strong>Idade:</strong> <input type="text" id="abfw_idade" class="salvavel" placeholder="Anos/Meses"></td>
+                <td style="width: 18%;"><strong>Data Avaliação:</strong> <input type="text" id="abfw_data" class="salvavel"></td>
+            </tr>
+        </table>
+
+        <!-- PAINEL DE SOMA AUTOMÁTICA (EXCLUINDO ND) -->
+        <div class="painel-resumo">
+            <span>📊 Total de Figuras Nomeadas / Respondidas (Excluindo ND):</span>
+            <span id="contadorFiguras" style="font-size: 16px; background: #ca8a04; color: white; padding: 2px 10px; border-radius: 4px;">0 / 105</span>
+        </div>
+
+        <!-- DUAS COLUNAS DE CATEGORIAS -->
+        <div class="grid-duplo">
+            <div>
+                <!-- VESTUÁRIO -->
+                <div class="secao-titulo">Vestuário</div>
+                <table class="tabela-vocab">
+                    <tr><th>Item</th><th style="width: 45px;" title="Designação Verbal Usual">DVU</th><th style="width: 45px;" title="Não Designação">ND</th><th style="width: 45px;" title="Processo de Substituição">PS</th><th title="Classificação do tipo de substituição">Tipologia</th></tr>
+                    <tr><td>bota</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>casaco</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>vestido</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>boné</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>calça</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>pijama</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>camisa</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>tênis</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>sapato</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>bolsa</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                </table>
+
+                <!-- ANIMAIS -->
+                <div class="secao-titulo">Animais</div>
+                <table class="tabela-vocab">
+                    <tr><th>Item</th><th style="width: 45px;" title="Designação Verbal Usual">DVU</th><th style="width: 45px;" title="Não Designação">ND</th><th style="width: 45px;" title="Processo de Substituição">PS</th><th title="Classificação do tipo de substituição">Tipologia</th></tr>
+                    <tr><td>passarinho</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>coruja</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>gato</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>pintinho</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>vaca</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>cachorro</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>pato</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>galinha</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>cavalo</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>porco</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>galo</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>urso</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>elefante</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>leão</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>coelho</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                </table>
+
+                <!-- MÓVEIS E UTENSÍLIOS -->
+                <div class="secao-titulo">Móveis e Utensílios</div>
+                <table class="tabela-vocab">
+                    <tr><th>Item</th><th style="width: 45px;" title="Designação Verbal Usual">DVU</th><th style="width: 45px;" title="Não Designação">ND</th><th style="width: 45px;" title="Processo de Substituição">PS</th><th title="Classificação do tipo de substituição">Tipologia</th></tr>
+                    <tr><td>cama</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>cadeira</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>cômoda</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>ferro de passar</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>tábua de passar</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>abajur</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>geladeira</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>sofá</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>fogão</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>mesa</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>telefone</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>privada</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>pia</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>xícara</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>garfo</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>copo</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>faca</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>frigideira</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>panela</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>prato</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>colher</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>pente</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>pasta de dente</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>toalha</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                </table>
+
+                <!-- PROFISSÕES -->
+                <div class="secao-titulo">Profissões</div>
+                <table class="tabela-vocab">
+                    <tr><th>Item</th><th style="width: 45px;" title="Designação Verbal Usual">DVU</th><th style="width: 45px;" title="Não Designação">ND</th><th style="width: 45px;" title="Processo de Substituição">PS</th><th title="Classificação do tipo de substituição">Tipologia</th></tr>
+                    <tr><td>barbeiro</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>dentista</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>médico</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>fazendeiro</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>bombeiro</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>carteiro</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>enfermeira</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>guarda</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>professora</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>palhaço</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                </table>
+            </div>
+
+            <div>
+                <!-- ALIMENTOS -->
+                <div class="secao-titulo">Alimentos</div>
+                <table class="tabela-vocab">
+                    <tr><th>Item</th><th style="width: 45px;" title="Designação Verbal Usual">DVU</th><th style="width: 45px;" title="Não Designação">ND</th><th style="width: 45px;" title="Processo de Substituição">PS</th><th title="Classificação do tipo de substituição">Tipologia</th></tr>
+                    <tr><td>queijo</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>ovo</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>carne</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>salada</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>sanduíche</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>sopa</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>macarrão</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>verdura</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>pipoca</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>maçã</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>banana</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>cenoura</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>cebola</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>abacaxi</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>melancia</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                </table>
+
+                <!-- MEIOS DE TRANSPORTE -->
+                <div class="secao-titulo">Meios de Transporte</div>
+                <table class="tabela-vocab">
+                    <tr><th>Item</th><th style="width: 45px;" title="Designação Verbal Usual">DVU</th><th style="width: 45px;" title="Não Designação">ND</th><th style="width: 45px;" title="Processo de Substituição">PS</th><th title="Classificação do tipo de substituição">Tipologia</th></tr>
+                    <tr><td>barco</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>navio</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>viatura</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>carro</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>helicóptero</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>avião</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>foguete</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>caminhão</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>bicicleta</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>ônibus</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>trem</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                </table>
+
+                <!-- LOCAIS -->
+                <div class="secao-titulo">Locais</div>
+                <table class="tabela-vocab">
+                    <tr><th>Item</th><th style="width: 45px;" title="Designação Verbal Usual">DVU</th><th style="width: 45px;" title="Não Designação">ND</th><th style="width: 45px;" title="Processo de Substituição">PS</th><th title="Classificação do tipo de substituição">Tipologia</th></tr>
+                    <tr><td>montanha</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>igreja</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>sala de aula</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>rua</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>prédio</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>cidade</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>estátua</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>estádio</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>loja</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>jardim</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>floresta</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>rio</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                </table>
+
+                <!-- FORMAS E CORES -->
+                <div class="secao-titulo">Formas e Cores</div>
+                <table class="tabela-vocab">
+                    <tr><th>Item</th><th style="width: 45px;" title="Designação Verbal Usual">DVU</th><th style="width: 45px;" title="Não Designação">ND</th><th style="width: 45px;" title="Processo de Substituição">PS</th><th title="Classificação do tipo de substituição">Tipologia</th></tr>
+                    <tr><td>preto</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>azul</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>vermelho</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>verde</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>amarelo</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>marrom</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>quadrado</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>círculo</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>triângulo</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>rectângulo</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                </table>
+
+                <!-- BRINQUEDOS E INSTRUMENTOS MUSICAIS -->
+                <div class="secao-titulo">Brinquedos e Instrumentos Musicais</div>
+                <table class="tabela-vocab">
+                    <tr><th>Item</th><th style="width: 45px;" title="Designação Verbal Usual">DVU</th><th style="width: 45px;" title="Não Designação">ND</th><th style="width: 45px;" title="Processo de Substituição">PS</th><th title="Classificação do tipo de substituição">Tipologia</th></tr>
+                    <tr><td>casinha</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>tambor</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>violão</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>corda</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>piano</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>robô</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>gangorra</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>patins</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>escorregador</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>balança</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                    <tr><td>apito</td><td><input type="text" class="salvavel calc-dvu"></td><td><input type="text" class="salvavel calc-nd"></td><td><input type="text" class="salvavel calc-ps"></td><td><input type="text" class="salvavel"></td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- BOTÕES DE AÇÃO -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 35px;" class="no-print">
+            <button onclick="limparFormulario()" style="background:#fee2e2; color:#b91c1c; padding:10px 20px; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">Limpar Ficha</button>
+            <button onclick="window.print()" style="background:#1e293b; color:white; padding:10px 20px; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">Imprimir / Salvar PDF</button>
+        </div>
+    </div>
+
+    <script>
+        if(!document.getElementById('abfw_data').value) {
+            document.getElementById('abfw_data').value = new Date().toLocaleDateString('pt-BR');
+        }
+
+        const CHAVE_STORAGE = "ficha_abfw_vocabulario_dados_v4";
+
+        function calcularTotalFiguras() {
+            const tabelas = document.querySelectorAll('.tabela-vocab');
+            let totalValidas = 0;
+            let totalLinhas = 0;
+
+            tabelas.forEach(tabela => {
+                const linhas = tabela.querySelectorAll('tr');
+                for (let i = 1; i < linhas.length; i++) {
+                    totalLinhas++;
+                    const inputDvu = linhas[i].querySelector('.calc-dvu');
+                    const inputPs = linhas[i].querySelector('.calc-ps');
+                    
+                    // Conta como acerto/nomeação apenas se preencheu DVU ou PS (excluindo ND)
+                    const temDvu = inputDvu && inputDvu.value.trim() !== '';
+                    const temPs = inputPs && inputPs.value.trim() !== '';
+
+                    if (temDvu || temPs) {
+                        totalValidas++;
+                    }
+                }
+            });
+
+            document.getElementById('contadorFiguras').innerText = `${totalValidas} / ${totalLinhas}`;
+        }
+
+        document.querySelectorAll('.salvavel').forEach(el => {
+            el.addEventListener('input', () => { 
+                salvarDados(); 
+                calcularTotalFiguras();
+            });
+        });
+
+        function salvarDados() {
+            const inputs = document.querySelectorAll('.salvavel');
+            const dados = {};
+            inputs.forEach((el, index) => {
+                dados['input_' + index] = el.value;
+            });
+            localStorage.setItem(CHAVE_STORAGE, JSON.stringify(dados));
+            
+            const status = document.getElementById('statusAutoSave');
+            status.innerText = "💾 Salvo automaticamente";
+            setTimeout(() => { status.innerText = "💾 Salvamento automático ativo"; }, 2000);
+        }
+
+        function carregarDados() {
+            const salvos = localStorage.getItem(CHAVE_STORAGE);
+            if (!salvos) return;
+            const dados = JSON.parse(salvos);
+            const inputs = document.querySelectorAll('.salvavel');
+            inputs.forEach((el, index) => {
+                if (dados['input_' + index] !== undefined) {
+                    el.value = dados['input_' + index];
+                }
+            });
+            calcularTotalFiguras();
+        }
+
+        function limparFormulario() {
+            if (confirm("Deseja realmente limpar todos os dados preenchidos deste protocolo ABFW?")) {
+                localStorage.removeItem(CHAVE_STORAGE);
+                location.reload();
+            }
+        }
+
+        window.onload = carregarDados;
+    </script>
+</body>
+</html>

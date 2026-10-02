@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ABFW - Teste de Linguagem Infantil - FonoTech</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .secao-avaliacao {
+            background-color: #ffffff;
+            border: 1px solid #9b2226;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .titulo-secao {
+            color: #9b2226;
+            border-bottom: 2px solid #ae2012;
+            padding-bottom: 5px;
+            margin-top: 0;
+            font-size: 18px;
+        }
+
+        .grid-checkbox {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .item-check {
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            padding: 10px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+        }
+
+        .item-check input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .campo-texto {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        @media print {
+            @page {
+                margin: 1.5cm;
+            }
+            .no-print, header, footer, button {
+                display: none !important;
+            }
+            body {
+                background: white !important;
+                padding: 0 !important;
+            }
+            .secao-avaliacao {
+                border: 1px solid #ccc !important;
+                box-shadow: none !important;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div style="display: flex; justify-content: space-between; align-items: center;" class="no-print">
+        <a href="avaliacoes.html">
+            <button type="button">⬅️ Voltar às Avaliações</button>
+        </a>
+    </div>
+
+    <h1 style="color: #9b2226; text-align: center;">📚 ABFW - Teste de Linguagem Infantil</h1>
+    <p style="text-align: center;" class="no-print">Mapeamento dos subtestes de Fonologia, Vocabulário, Fluência e Pragmática.</p>
+
+    <div class="card-conteudo">
+
+        <!-- DADOS DO PACIENTE -->
+        <div class="secao-avaliacao">
+            <h3 class="titulo-secao">📌 Dados do Paciente</h3>
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 15px;">
+                <div>
+                    <label for="nomePacienteABFW"><strong>Nome do Paciente:</strong></label>
+                    <input type="text" id="nomePacienteABFW" class="campo-texto" placeholder="Digite o nome completo do paciente">
+                </div>
+                <div>
+                    <label for="dataABFW"><strong>Data da Avaliação:</strong></label>
+                    <input type="date" id="dataABFW" class="campo-texto">
+                </div>
+            </div>
+        </div>
+
+        <!-- SUBTESTES AVALIADOS -->
+        <div class="secao-avaliacao">
+            <h3 class="titulo-secao">📋 Subtestes Aplicados</h3>
+            <div class="grid-checkbox">
+                <label class="item-check"><input type="checkbox" id="abfw_fonologia"> 🔤 Fonologia (Nomeação / Imitação)</label>
+                <label class="item-check"><input type="checkbox" id="abfw_vocabulario"> 🖼️ Vocabulário Expressivo (DVU/NDV)</label>
+                <label class="item-check"><input type="checkbox" id="abfw_fluencia"> 🗣️ Fluência (Velocidade e Disfluências)</label>
+                <label class="item-check"><input type="checkbox" id="abfw_pragmatica"> 💬 Pragmática (Atos Comunicativos)</label>
+            </div>
+        </div>
+
+        <!-- RESUMO DOS PROCESSOS FONOLÓGICOS / DESEMPENHO VOCABULAR -->
+        <div class="secao-avaliacao">
+            <h3 class="titulo-secao">📊 Síntese dos Resultados e Processos Fonológicos</h3>
+            <div style="margin-bottom: 15px;">
+                <label for="obsFonologiaABFW"><strong>Processos Fonológicos Observados (ex: Simplificação de Encontro, Apagamento):</strong></label>
+                <textarea id="obsFonologiaABFW" rows="3" class="campo-texto" placeholder="Liste os processos fonológicos encontrados na prova de fonologia..."></textarea>
+            </div>
+            <div>
+                <label for="parecerABFW"><strong>Parecer Clínico e Desempenho no ABFW:</strong></label>
+                <textarea id="parecerABFW" rows="3" class="campo-texto" placeholder="Descreva a porcentagem de acertos em vocabulário e conduta fonoaudiológica..."></textarea>
+            </div>
+        </div>
+
+        <!-- ASSINATURA -->
+        <div style="text-align: center; margin-top: 30px;">
+            <p>__________________________________________________</p>
+            <p><strong>Ingrid Cruz</strong><br>Fonoaudióloga | CRFa 8-13571</p>
+        </div>
+
+        <!-- BOTÕES DE AÇÃO -->
+        <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;" class="no-print">
+            <button type="button" onclick="salvarABFW()" style="background-color: #2b9348;">💾 Salvar no Histórico do Paciente</button>
+            <button type="button" onclick="window.print()" style="background-color: #9b2226;">🖨️ Imprimir / Salvar PDF</button>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById('dataABFW').value = new Date().toISOString().split('T')[0];
+        });
+
+        function salvarABFW() {
+            let nome = document.getElementById("nomePacienteABFW").value.trim();
+
+            if (!nome) {
+                alert("⚠️ Por favor, informe o nome do paciente antes de salvar!");
+                return;
+            }
+
+            let chave = "historico_" + nome.toLowerCase();
+            let historico = JSON.parse(localStorage.getItem(chave)) || [];
+
+            historico.push({
+                jogo: "ABFW - Teste de Linguagem Infantil",
+                sessao: historico.length + 1,
+                pontuacao: "Teste ABFW registrado com sucesso",
+                data: new Date().toLocaleDateString("pt-BR")
+            });
+
+            localStorage.setItem(chave, JSON.stringify(historico));
+            alert(`✅ Teste ABFW salvo com sucesso no histórico de ${nome}!`);
+        }
+    </script>
+
+</body>
+
+</html>

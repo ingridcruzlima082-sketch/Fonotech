@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Motricidade Orofacial - FonoTech</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .pagina-doc { max-width: 850px; margin: 30px auto; background: #fff; padding: 50px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); font-family: 'Helvetica Neue', Arial, sans-serif; color: #222; }
+        .cabecalho { border-bottom: 1.5px solid #1e293b; padding-bottom: 15px; margin-bottom: 25px; display: flex; justify-content: space-between; }
+        .tabela-info { width: 100%; border-collapse: collapse; margin-bottom: 25px; font-size: 13px; }
+        .tabela-info th, .tabela-info td { border: 1px solid #cbd5e1; padding: 8px 12px; text-align: left; }
+        .tabela-info th { background-color: #f8fafc; color: #334155; width: 28%; }
+        .tabela-info input { width: 100%; border: none; background: transparent; font-family: inherit; font-size: 13px; outline: none; }
+        .secao-titulo { background-color: #f1f5f9; color: #1d4ed8; padding: 8px 12px; font-size: 13px; font-weight: bold; text-transform: uppercase; border-left: 4px solid #1d4ed8; border: 1px solid #e2e8f0; margin-top: 20px; margin-bottom: 8px; }
+        .secao-texto { border: none; padding: 8px 4px; min-height: 80px; font-size: 13.5px; line-height: 1.6; outline: none; color: #1e293b; }
+        .secao-texto:focus { background-color: #fafbfc; }
+        @media print { .no-print { display: none !important; } body { background: white !important; padding: 0 !important; } .pagina-doc { box-shadow: none !important; margin: 0 !important; max-width: 100% !important; } }
+    </style>
+</head>
+<body>
+    <div class="no-print" style="max-width: 850px; margin: 20px auto;"><a href="avaliacoes.html"><button style="padding: 8px 16px; background: #64748b; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">Voltar</button></a></div>
+    <div class="pagina-doc">
+        <div class="cabecalho">
+            <div><strong>PROTOCOLO CLÍNICO</strong><br><span style="font-size:12px; color:#64748b;">Avaliação de Motricidade Orofacial e Funções Estomatognáticas</span></div>
+            <div style="text-align: right; font-size: 12px;"><strong>Ingrid Cruz</strong><br>Fonoaudióloga | CRFa 8-13571</div>
+        </div>
+        <table class="tabela-info">
+            <tr><th>PACIENTE:</th><td><input type="text" placeholder="Nome completo..."></td></tr>
+            <tr><th>DATA:</th><td><input type="text" id="dataAtual"></td></tr>
+            <tr><th>POSTURA:</th><td><input type="text" value="Habitual de lábios, língua e mandíbula"></td></tr>
+        </table>
+        <div class="secao-titulo">1. Análise de Estruturas Estomatognáticas (Lábios, Língua, Bochechas e Oclusão)</div>
+        <div class="secao-conteudo secao-texto" contenteditable="true">Simetria facial, tônus muscular, tipo de oclusão dentária e frênulo lingual/labial...</div>
+        <div class="secao-titulo">2. Avaliação das Funções Orofaciais (Respiração, Deglutição e Mastigação)</div>
+        <div class="secao-conteudo secao-texto" contenteditable="true">Modo respiratório predominante, padrão mastigatório (lateral/bilateral) e deglutição (participação de musculatura acessória)...</div>
+        <div class="secao-titulo">3. Mobilidade e Tonicidade</div>
+        <div class="secao-conteudo secao-texto" contenteditable="true">Amplitude de movimento dos órgãos fonoarticulatórios...</div>
+        <div class="secao-titulo">4. Conclusão e Conduta Miofuncional</div>
+        <div class="secao-conteudo secao-texto" contenteditable="true">Diretrizes de intervenção miofuncional orofacial...</div>
+        <div style="text-align: right; margin-top: 35px;" class="no-print"><button onclick="window.print()" style="background:#1e293b; color:white; padding:10px 20px; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">Imprimir / Salvar PDF</button></div>
+    </div>
+    <script>document.getElementById('dataAtual').value = new Date().toLocaleDateString('pt-BR');</script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vocabulário - FonoTech</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .grid-categorias {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            max-width: 700px;
+            margin: 20px auto;
+        }
+
+        .card-categoria-btn {
+            background-color: #ffffff;
+            border: 3px solid #ee9b00;
+            border-radius: 12px;
+            padding: 20px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            user-select: none;
+        }
+
+        .card-categoria-btn:hover {
+            transform: scale(1.05);
+            background-color: #fff8e7;
+        }
+
+        .painel-item-alvo {
+            background-color: #ffffff;
+            border: 3px dashed #ca6702;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            max-width: 350px;
+            margin: 0 auto 20px auto;
+        }
+
+        .painel-sessao-destaque {
+            background-color: #fff3bf;
+            border: 1px solid #ffe066;
+            border-radius: 8px;
+            padding: 10px 15px;
+            display: inline-block;
+            margin-top: 10px;
+            color: #856404;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="no-print" style="display: flex; justify-content: space-between; align-items: center;">
+        <a href="jogos.html">
+            <button type="button">⬅️ Voltar aos Jogos</button>
+        </a>
+    </div>
+
+    <h1 style="text-align: center; color: #ca6702;">🍎 Jogo de Vocabulário e Categorias</h1>
+    <p style="text-align: center;">Identifique a figura central e escolha a qual grupo ela pertence!</p>
+
+    <!-- IDENTIFICAÇÃO DO PACIENTE E PAINEL DE SESSÕES SEPARADO -->
+    <div style="text-align: center; margin-bottom: 20px;" class="no-print">
+        <label for="pacienteJogo"><strong>Paciente:</strong></label>
+        <input type="text" id="pacienteJogo" placeholder="Digite o nome do paciente" style="width: 250px; display: inline-block;" oninput="verificarSessoesAnteriores()">
+        <button onclick="iniciarPartida()" style="background-color: #ee9b00;">🚀 Iniciar Partida (10 Rodadas)</button>
+
+        <br>
+        <div id="painelInfoSessao" class="painel-sessao-destaque" style="display: none;"></div>
+    </div>
+
+    <!-- ÁREA DO JOGO -->
+    <div id="areaJogo" style="display: none;">
+
+        <div style="display: flex; justify-content: space-around; align-items: center; max-width: 600px; margin: 0 auto;">
+            <div>
+                <h3>🎯 Rodada: <span id="numeroRodada" style="color: #ca6702;">1</span>/10</h3>
+            </div>
+            <div>
+                <h3>🏆 Acertos: <span id="contadorAcertos" style="color: #2a9d8f;">0</span></h3>
+            </div>
+        </div>
+
+        <div class="painel-item-alvo">
+            <p style="margin: 0; font-size: 14px; font-weight: bold; color: #555;">QUAL É A CATEGORIA DESTE ITEM?</p>
+            <div id="figuraAlvo" style="font-size: 80px; margin: 10px 0;">❓</div>
+            <h2 id="nomeFiguraAlvo" style="margin: 0; color: #ca6702;"></h2>
+        </div>
+
+        <p style="text-align: center; font-weight: bold; color: #333;">Clique na categoria correta abaixo:</p>
+
+        <div class="grid-categorias" id="gradeCategorias"></div>
+    </div>
+
+    <script>
+        const nomeDoJogoAtual = "Vocabulário";
+
+        const bancoItens = [
+            // ALIMENTOS
+            { emoji: "🍎", nome: "MAÇÃ", categoria: "ALIMENTOS" },
+            { emoji: "🍌", nome: "BANANA", categoria: "ALIMENTOS" },
+            { emoji: "🍕", nome: "PIZZA", categoria: "ALIMENTOS" },
+            { emoji: "🍇", nome: "UVA", categoria: "ALIMENTOS" },
+            { emoji: "🥕", nome: "CENOURA", categoria: "ALIMENTOS" },
+
+            // ANIMAIS
+            { emoji: "🐶", nome: "CACHORRO", categoria: "ANIMAIS" },
+            { emoji: "🐱", nome: "GATO", categoria: "ANIMAIS" },
+            { emoji: "🦁", nome: "LEÃO", categoria: "ANIMAIS" },
+            { emoji: "🐸", nome: "SAPO", categoria: "ANIMAIS" },
+            { emoji: "🐟", nome: "PEIXE", categoria: "ANIMAIS" },
+
+            // OBJETOS
+            { emoji: "🚗", nome: "CARRO", categoria: "OBJETOS" },
+            { emoji: "⚽", nome: "BOLA", categoria: "OBJETOS" },
+            { emoji: "🔑", nome: "CHAVE", categoria: "OBJETOS" },
+            { emoji: "📱", nome: "CELULAR", categoria: "OBJETOS" },
+            { emoji: "✏️", nome: "LÁPIS", categoria: "OBJETOS" }
+        ];
+
+        const categoriasDisponiveis = [
+            { id: "ALIMENTOS", titulo: "Alimentos", emoji: "🍎" },
+            { id: "ANIMAIS", titulo: "Animais", emoji: "🐶" },
+            { id: "OBJETOS", titulo: "Objetos", emoji: "📦" }
+        ];
+
+        let acertos = 0;
+        let rodadaAtual = 0;
+        const totalRodadas = 10;
+        let itemAtual = null;
+        let numeroProximaSessao = 1;
+
+        // FILTRA AS SESSÕES ESPECÍFICAS DESTE JOGO (VOCABULÁRIO)
+        function verificarSessoesAnteriores() {
+            let nome = document.getElementById("pacienteJogo").value.trim();
+            let painel = document.getElementById("painelInfoSessao");
+
+            if (nome === "") {
+                painel.style.display = "none";
+                return;
+            }
+
+            let chave = "historico_" + nome.toLowerCase();
+            let historicoGeral = JSON.parse(localStorage.getItem(chave)) || [];
+            
+            // Filtra só os registros do jogo "Vocabulário"
+            let historicoDoJogo = historicoGeral.filter(r => r.jogo === nomeDoJogoAtual);
+            
+            numeroProximaSessao = historicoDoJogo.length + 1;
+
+            painel.style.display = "inline-block";
+            if (historicoDoJogo.length === 0) {
+                painel.innerHTML = "📌 Primeira sessão de <strong>" + nomeDoJogoAtual + "</strong> para " + nome + "!";
+            } else {
+                painel.innerHTML = "📊 <strong>" + nome + "</strong> já realizou " + historicoDoJogo.length + " sessão(ões) de <strong>" + nomeDoJogoAtual + "</strong>. Iniciando a <strong>Sessão Nº " + numeroProximaSessao + "</strong>!";
+            }
+        }
+
+        function iniciarPartida() {
+            let nome = document.getElementById("pacienteJogo").value.trim();
+            if (nome === "") {
+                alert("Por favor, digite o nome do paciente antes de iniciar.");
+                return;
+            }
+
+            verificarSessoesAnteriores();
+
+            acertos = 0;
+            rodadaAtual = 0;
+            document.getElementById("contadorAcertos").innerText = acertos;
+            document.getElementById("areaJogo").style.display = "block";
+
+            proximaRodada();
+        }
+
+        function proximaRodada() {
+            rodadaAtual++;
+
+            if (rodadaAtual > totalRodadas) {
+                finalizarSessao();
+                return;
+            }
+
+            document.getElementById("numeroRodada").innerText = rodadaAtual;
+
+            itemAtual = bancoItens[Math.floor(Math.random() * bancoItens.length)];
+            document.getElementById("figuraAlvo").innerText = itemAtual.emoji;
+            document.getElementById("nomeFiguraAlvo").innerText = itemAtual.nome;
+
+            let grade = document.getElementById("gradeCategorias");
+            grade.innerHTML = "";
+
+            categoriasDisponiveis.forEach(cat => {
+                let btn = document.createElement("div");
+                btn.className = "card-categoria-btn";
+                btn.innerHTML = `
+                    <div style="font-size: 45px;">${cat.emoji}</div>
+                    <div style="font-weight: bold; margin-top: 5px; color: #1e3d59;">${cat.titulo}</div>
+                `;
+                btn.onclick = () => verificarEscolha(cat.id);
+                grade.appendChild(btn);
+            });
+        }
+
+        function verificarEscolha(categoriaEscolhida) {
+            if (categoriaEscolhida === itemAtual.categoria) {
+                acertos++;
+                document.getElementById("contadorAcertos").innerText = acertos;
+                alert("✨ Muito bem! " + itemAtual.nome + " pertence à categoria " + itemAtual.categoria + "!");
+            } else {
+                alert("❌ Ops! " + itemAtual.nome + " pertence à categoria " + itemAtual.categoria + ".");
+            }
+
+            proximaRodada();
+        }
+
+        function finalizarSessao() {
+            let nome = document.getElementById("pacienteJogo").value.trim();
+            let chave = "historico_" + nome.toLowerCase();
+
+            let historicoGeral = JSON.parse(localStorage.getItem(chave)) || [];
+
+            historicoGeral.push({
+                sessao: numeroProximaSessao,
+                jogo: nomeDoJogoAtual,
+                pontuacao: acertos + " de " + totalRodadas,
+                data: new Date().toLocaleDateString("pt-BR")
+            });
+
+            localStorage.setItem(chave, JSON.stringify(historicoGeral));
+
+            alert("🎉 Fim de jogo!\n\nPaciente: " + nome + "\nHabilidade: " + nomeDoJogoAtual + "\nSessão: Nº " + numeroProximaSessao + "\nPontuação Final: " + acertos + " acertos em 10 rodadas.");
+            
+            verificarSessoesAnteriores();
+            document.getElementById("areaJogo").style.display = "none";
+        }
+    </script>
+
+</body>
+
+</html>

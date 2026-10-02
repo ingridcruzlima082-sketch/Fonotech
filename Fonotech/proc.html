@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PROC - Protocolo de Observação Comportamental - FonoTech</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .secao-avaliacao {
+            background-color: #ffffff;
+            border: 1px solid #ae2012;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .titulo-secao {
+            color: #ae2012;
+            border-bottom: 2px solid #9b2226;
+            padding-bottom: 5px;
+            margin-top: 0;
+            font-size: 18px;
+        }
+
+        .grid-checkbox {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .item-check {
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            padding: 10px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+        }
+
+        .item-check input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .campo-texto {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        @media print {
+            @page {
+                margin: 1.5cm;
+            }
+            .no-print, header, footer, button {
+                display: none !important;
+            }
+            body {
+                background: white !important;
+                padding: 0 !important;
+            }
+            .secao-avaliacao {
+                border: 1px solid #ccc !important;
+                box-shadow: none !important;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div style="display: flex; justify-content: space-between; align-items: center;" class="no-print">
+        <a href="avaliacoes.html">
+            <button type="button">⬅️ Voltar às Avaliações</button>
+        </a>
+    </div>
+
+    <h1 style="color: #ae2012; text-align: center;">🧩 PROC - Protocolo de Observação Comportamental</h1>
+    <p style="text-align: center;" class="no-print">Avaliação das habilidades comunicativas, pragmáticas, comportamentais e do brincar simbólico.</p>
+
+    <div class="card-conteudo">
+
+        <!-- DADOS DO PACIENTE -->
+        <div class="secao-avaliacao">
+            <h3 class="titulo-secao">📌 Dados do Paciente</h3>
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 15px;">
+                <div>
+                    <label for="nomePacientePROC"><strong>Nome do Paciente:</strong></label>
+                    <input type="text" id="nomePacientePROC" class="campo-texto" placeholder="Digite o nome completo do paciente">
+                </div>
+                <div>
+                    <label for="dataPROC"><strong>Data da Avaliação:</strong></label>
+                    <input type="date" id="dataPROC" class="campo-texto">
+                </div>
+            </div>
+        </div>
+
+        <!-- 1. INTENÇÃO E FUNÇÃO COMUNICATIVA -->
+        <div class="secao-avaliacao">
+            <h3 class="titulo-secao">💬 Intenção e Funções Comunicativas</h3>
+            <div class="grid-checkbox">
+                <label class="item-check"><input type="checkbox" id="proc_contato_visual"> 👁️ Contato visual sustentado e funcional</label>
+                <label class="item-check"><input type="checkbox" id="proc_atencao_compartilhada"> 🤝 Atenção compartilhada estabelecida</label>
+                <label class="item-check"><input type="checkbox" id="proc_inicia_comunicacao"> 🗣️ Inicia comunicação de forma espontânea</label>
+                <label class="item-check"><input type="checkbox" id="proc_responde_comunicacao"> 👂 Responde a chamados / Solicitações</label>
+                <label class="item-check"><input type="checkbox" id="proc_funcao_instrumental"> 🛠️ Funções instrumentais (Pedir/Exigir)</label>
+                <label class="item-check"><input type="checkbox" id="proc_funcao_interativa"> 🎈 Funções interativas / Sociais</label>
+            </div>
+        </div>
+
+        <!-- 2. NÍVEL DO BRINCAR E COGNIÇÃO -->
+        <div class="secao-avaliacao">
+            <h3 class="titulo-secao">🧸 Desenvolvimento do Brincar e Cognição</h3>
+            <div class="grid-checkbox">
+                <label class="item-check"><input type="checkbox" id="proc_brincar_exploratorio"> 🔍 Brincar Exploratório / Sensório-motor</label>
+                <label class="item-check"><input type="checkbox" id="proc_brincar_funcional"> 🚗 Brincar Funcional (Uso correto de objetos)</label>
+                <label class="item-check"><input type="checkbox" id="proc_brincar_simbolico"> 🎭 Brincar Simbólico / Faz de conta</label>
+                <label class="item-check"><input type="checkbox" id="proc_compreensao_regra"> 🎲 Compreensão de regras de jogos simples</label>
+                <label class="item-check"><input type="checkbox" id="proc_imitacao"> 🪞 Imitação de gestos e sons</label>
+            </div>
+        </div>
+
+        <!-- 3. PARECER E OBSERVACÕES -->
+        <div class="secao-avaliacao">
+            <h3 class="titulo-secao">📝 Parecer e Conduta Clínica</h3>
+            <textarea id="parecerPROC" rows="4" class="campo-texto" placeholder="Descreva o perfil pragmático, adaptação ao ambiente de avaliação e conduta..."></textarea>
+        </div>
+
+        <!-- ASSINATURA -->
+        <div style="text-align: center; margin-top: 30px;">
+            <p>__________________________________________________</p>
+            <p><strong>Ingrid Cruz</strong><br>Fonoaudióloga | CRFa 8-13571</p>
+        </div>
+
+        <!-- BOTÕES DE AÇÃO -->
+        <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;" class="no-print">
+            <button type="button" onclick="salvarPROC()" style="background-color: #2b9348;">💾 Salvar no Histórico do Paciente</button>
+            <button type="button" onclick="window.print()" style="background-color: #ae2012;">🖨️ Imprimir / Salvar PDF</button>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById('dataPROC').value = new Date().toISOString().split('T')[0];
+        });
+
+        function salvarPROC() {
+            let nome = document.getElementById("nomePacientePROC").value.trim();
+
+            if (!nome) {
+                alert("⚠️ Por favor, informe o nome do paciente antes de salvar!");
+                return;
+            }
+
+            let chave = "historico_" + nome.toLowerCase();
+            let historico = JSON.parse(localStorage.getItem(chave)) || [];
+
+            historico.push({
+                jogo: "PROC - Observação Comportamental",
+                sessao: historico.length + 1,
+                pontuacao: "Protocolo PROC registrado com sucesso",
+                data: new Date().toLocaleDateString("pt-BR")
+            });
+
+            localStorage.setItem(chave, JSON.stringify(historico));
+            alert(`✅ Protocolo PROC salvo com sucesso no histórico de ${nome}!`);
+        }
+    </script>
+
+</body>
+
+</html>

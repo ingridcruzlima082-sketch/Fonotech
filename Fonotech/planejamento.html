@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Planejamento Terapêutico - FonoTech</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- CONTROLES DE NAVEGAÇÃO E IMPRESSÃO (OCULTOS NO PDF) -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;" class="no-print">
+        <a href="index.html">
+            <button type="button">⬅️ Voltar ao Menu</button>
+        </a>
+
+        <div>
+            <button type="button" onclick="salvarPlanejamento()">💾 Salvar Planejamento</button>
+            <button type="button" onclick="window.print()" style="background-color: #28a745; font-weight: bold;">
+                🖨️ Imprimir / Salvar em PDF
+            </button>
+        </div>
+    </div>
+
+    <!-- CABEÇALHO DO DOCUMENTO -->
+    <div style="text-align: center; margin-bottom: 25px;">
+        <h1 style="font-size: 22px; color: #1e3d59; text-transform: uppercase; margin: 0;">PLANEJAMENTO TERAPÊUTICO FONOAUDIOLÓGICO</h1>
+    </div>
+
+    <form id="formPlanejamentoCompleto">
+
+        <!-- DADOS DO PACIENTE -->
+        <h2 style="font-size: 16px; border-bottom: 2px solid #0a9396; padding-bottom: 4px; color: #005f73;">DADOS DO PACIENTE</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;">
+            <div>
+                <label for="nomePaciente"><strong>Nome:</strong></label><br>
+                <input type="text" id="nomePaciente" placeholder="Nome completo do paciente">
+            </div>
+            <div>
+                <label for="idadePaciente"><strong>Idade:</strong></label><br>
+                <input type="text" id="idadePaciente" placeholder="Ex: 12 anos">
+            </div>
+            <div>
+                <label for="dataNascimento"><strong>Data de Nascimento:</strong></label><br>
+                <input type="text" id="dataNascimento" placeholder="DD/MM/AAAA">
+            </div>
+            <div>
+                <label for="diagnostico"><strong>Diagnóstico:</strong></label><br>
+                <input type="text" id="diagnostico" placeholder="Ex: Transtorno do Espectro Autista - TEA (CID 10 – F84.0)">
+            </div>
+            <div>
+                <label for="validadeDoc"><strong>Validade do Documento:</strong></label><br>
+                <input type="text" id="validadeDoc" value="Semestral">
+            </div>
+        </div>
+
+        <!-- BREVE HISTÓRIA CLÍNICA -->
+        <h2 style="font-size: 16px; border-bottom: 2px solid #0a9396; padding-bottom: 4px; color: #005f73;">BREVE HISTÓRIA CLÍNICA</h2>
+        <textarea id="historiaClinica" rows="6" style="width: 100%; max-width: 100%; margin-bottom: 20px;" placeholder="Descreva a história clínica, queixas da família, observações em sala e protocolos utilizados (ex: IPO, PROC, PROLEC)..."></textarea>
+
+        <!-- PROCEDIMENTOS E ESTRATÉGIAS DE ENSINO -->
+        <h2 style="font-size: 16px; border-bottom: 2px solid #0a9396; padding-bottom: 4px; color: #005f73;">PROCEDIMENTOS E ESTRATÉGIAS DE ENSINO A SEREM UTILIZADOS</h2>
+        <textarea id="procedimentos" rows="4" style="width: 100%; max-width: 100%; margin-bottom: 20px;" placeholder="Ex: Instrução fonológica estruturada, Modelagem, Prática guiada, Feedback corretivo imediato e específico..."></textarea>
+
+        <!-- OBJETIVOS POR ÁREA (TABELA DE METAS) -->
+        <h2 style="font-size: 16px; border-bottom: 2px solid #0a9396; padding-bottom: 4px; color: #005f73;">OBJETIVOS POR ÁREA (LINGUAGEM)</h2>
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 14px;">
+            <thead>
+                <tr style="background-color: #0a9396; color: white; text-align: left;">
+                    <th style="padding: 10px; border: 1px solid #ccc; width: 30%;">OBJETIVO ESPECÍFICO</th>
+                    <th style="padding: 10px; border: 1px solid #ccc; width: 40%;">ATIVIDADE</th>
+                    <th style="padding: 10px; border: 1px solid #ccc; width: 30%;">MATERIAL</th>
+                </tr>
+            </thead>
+            <tbody id="corpoTabelaMetas">
+                <!-- LINHAS PREENCHÍVEIS DINAMICAMENTE OU MANUAIS -->
+            </tbody>
+        </table>
+
+        <div class="no-print" style="margin-bottom: 20px;">
+            <button type="button" onclick="adicionarLinhaMeta()" style="background-color: #1e3d59;">➕ Adicionar Novo Objetivo</button>
+        </div>
+
+        <!-- CONCLUSÃO -->
+        <h2 style="font-size: 16px; border-bottom: 2px solid #0a9396; padding-bottom: 4px; color: #005f73;">CONCLUSÃO</h2>
+        <textarea id="conclusao" rows="6" style="width: 100%; max-width: 100%; margin-bottom: 20px;" placeholder="Insira a síntese conclusiva, enquadramento nas diretrizes (ex: DSM-V) e periodicidade de reavaliação..."></textarea>
+
+        <!-- PROFISSIONAL RESPONSÁVEL -->
+        <div style="margin-top: 30px; margin-bottom: 30px;">
+            <h2 style="font-size: 16px; border-bottom: 2px solid #0a9396; padding-bottom: 4px; color: #005f73;">PROFISSIONAL RESPONSÁVEL</h2>
+            <div style="margin-top: 15px;">
+                <input type="text" id="nomeProfissional" value="INGRID CRUZ" style="font-weight: bold; width: 300px;"><br>
+                <input type="text" id="cargoProfissional" value="FONOAUDIÓLOGA" style="width: 300px;"><br>
+                <input type="text" id="crfaProfissional" value="CRFa 8-13571" style="width: 300px;">
+            </div>
+        </div>
+
+        <!-- REFERÊNCIAS -->
+        <h2 style="font-size: 16px; border-bottom: 2px solid #0a9396; padding-bottom: 4px; color: #005f73;">REFERÊNCIAS</h2>
+        <textarea id="referencias" rows="4" style="width: 100%; max-width: 100%; margin-bottom: 20px; font-size: 13px;">Williams LCA, Aiello ALR. O Inventário Portage Operacionalizado: intervenção com famílias. São Paulo: Memnon; FAPESP; 2001.
+Capellini SA, Oliveira AM, Cuetos F. PROLEC: Provas de Avaliação dos Processos de Leitura. 2ª ed. São Paulo: Casa do Psicólogo; 2012.
+Fernandes FDM. PROC: Protocolo de Observação Comportamental – avaliação de linguagem e aspectos cognitivos infantis. Barueri: Pró-Fono; 2004.</textarea>
+
+        <!-- ENTREGA – DEVOLUTIVA E ORIENTAÇÃO -->
+        <h2 style="font-size: 16px; border-bottom: 2px solid #0a9396; padding-bottom: 4px; color: #005f73;">ENTREGA – DEVOLUTIVA E ORIENTAÇÃO</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
+            <div>
+                <label for="dataDevolutiva"><strong>Data:</strong></label><br>
+                <input type="text" id="dataDevolutiva">
+            </div>
+            <div>
+                <label for="responsavelDevolutiva"><strong>Responsável:</strong></label><br>
+                <input type="text" id="responsavelDevolutiva" placeholder="Nome do responsável">
+            </div>
+        </div>
+        <div style="margin-top: 40px; text-align: center;">
+            <div style="border-top: 1px solid #000; width: 300px; margin: 0 auto; padding-top: 5px;">
+                <strong>Assinatura do Responsável</strong>
+            </div>
+        </div>
+
+    </form>
+
+    <script>
+        // Data atual por padrão na devolutiva
+        document.getElementById("dataDevolutiva").value = new Date().toLocaleDateString("pt-BR");
+
+        // Metas padrão pré-carregadas (baseadas no seu modelo)
+        const metasPadrao = [
+            {
+                objetivo: "Aprimorar consciência fonológica e fonêmica",
+                atividade: "Segmentação e manipulação de fonemas; substituição e inversão de sons; identificação de fonema inicial, medial e final.",
+                material: "Cartões fonêmicos; fichas de segmentação; letras móveis; jogos fonológicos."
+            },
+            {
+                objetivo: "Desenvolver habilidades de decodificação",
+                atividade: "Leitura de palavras regulares, irregulares e pseudopalavras; treino de correspondência grafema-fonema; leitura silábica estruturada.",
+                material: "Lista graduada de palavras; textos adaptados; material inspirado no PROLEC; régua de leitura."
+            },
+            {
+                objetivo: "Melhorar fluência leitora",
+                atividade: "Leitura repetida de textos curtos; treino de ritmo e prosódia; marcação de pausas adequadas; leitura cronometrada com foco em precisão.",
+                material: "Textos narrativos curtos; cronômetro; gravador para feedback auditivo."
+            },
+            {
+                objetivo: "Aprimorar compreensão leitora",
+                atividade: "Leitura seguida de perguntas literais e inferenciais; identificação de ideia principal; organização de sequência lógica da história.",
+                material: "Textos adequados à faixa etária; fichas de perguntas; mapas mentais."
+            },
+            {
+                objetivo: "Desenvolver organização textual na escrita",
+                atividade: "Produção de frases estruturadas; ampliação para parágrafos; planejamento prévio do texto (início, meio e fim); revisão guiada.",
+                material: "Roteiro de produção textual; organizadores gráficos; caderno estruturado; checklist de revisão."
+            },
+            {
+                objetivo: "Reduzir erros ortográficos",
+                atividade: "Ditado reflexivo; análise de regras ortográficas; contraste entre grafias semelhantes; treino de palavras de uso frequente.",
+                material: "Lista de palavras por regra ortográfica; cartões de apoio visual; dicionário escolar."
+            }
+        ];
+
+        function carregarTabelaMetas(metas) {
+            let tbody = document.getElementById("corpoTabelaMetas");
+            tbody.innerHTML = "";
+            metas.forEach(m => {
+                let tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td style="padding: 8px; border: 1px solid #ccc;"><textarea style="width: 100%; border: none; font-size: 13px;">${m.objetivo}</textarea></td>
+                    <td style="padding: 8px; border: 1px solid #ccc;"><textarea style="width: 100%; border: none; font-size: 13px;">${m.atividade}</textarea></td>
+                    <td style="padding: 8px; border: 1px solid #ccc;"><textarea style="width: 100%; border: none; font-size: 13px;">${m.material}</textarea></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function adicionarLinhaMeta() {
+            let tbody = document.getElementById("corpoTabelaMetas");
+            let tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td style="padding: 8px; border: 1px solid #ccc;"><textarea style="width: 100%; border: none; font-size: 13px;" placeholder="Novo objetivo..."></textarea></td>
+                <td style="padding: 8px; border: 1px solid #ccc;"><textarea style="width: 100%; border: none; font-size: 13px;" placeholder="Nova atividade..."></textarea></td>
+                <td style="padding: 8px; border: 1px solid #ccc;"><textarea style="width: 100%; border: none; font-size: 13px;" placeholder="Novos materiais..."></textarea></td>
+            `;
+            tbody.appendChild(tr);
+        }
+
+        // Carrega as metas padrão ao iniciar
+        carregarTabelaMetas(metasPadrao);
+
+        function salvarPlanejamento() {
+            let nome = document.getElementById("nomePaciente").value.trim();
+
+            if (nome === "") {
+                alert("Por favor, preencha o nome do paciente.");
+                return;
+            }
+
+            // Coleta das metas da tabela
+            let linhas = document.querySelectorAll("#corpoTabelaMetas tr");
+            let metasSalvas = [];
+            linhas.forEach(row => {
+                let textareas = row.querySelectorAll("textarea");
+                metasSalvas.push({
+                    objetivo: textareas[0].value,
+                    atividade: textareas[1].value,
+                    material: textareas[2].value
+                });
+            });
+
+            let planejamento = {
+                paciente: nome,
+                idade: document.getElementById("idadePaciente").value,
+                dataNascimento: document.getElementById("dataNascimento").value,
+                diagnostico: document.getElementById("diagnostico").value,
+                validadeDoc: document.getElementById("validadeDoc").value,
+                historiaClinica: document.getElementById("historiaClinica").value,
+                procedimentos: document.getElementById("procedimentos").value,
+                metas: metasSalvas,
+                conclusao: document.getElementById("conclusao").value,
+                referencias: document.getElementById("referencias").value,
+                dataDevolutiva: document.getElementById("dataDevolutiva").value,
+                responsavelDevolutiva: document.getElementById("responsavelDevolutiva").value,
+                dataSalvo: new Date().toLocaleDateString("pt-BR")
+            };
+
+            let chave = "planejamento_" + nome.toLowerCase();
+            localStorage.setItem(chave, JSON.stringify(planejamento));
+
+            alert("Planejamento Terapêutico de " + nome + " salvo com sucesso!");
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Anamnese de Linguagem Infantil - FonoTech</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .pagina-doc { 
+            max-width: 850px; 
+            margin: 30px auto; 
+            background: #fff; 
+            padding: 50px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06); 
+            font-family: 'Helvetica Neue', Arial, sans-serif; 
+            color: #222; 
+        }
+        .cabecalho { 
+            border-bottom: 1.5px solid #1e293b; 
+            padding-bottom: 15px; 
+            margin-bottom: 25px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+        }
+        .tabela-info { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-bottom: 20px; 
+            font-size: 13px; 
+            table-layout: fixed; /* Força a tabela a respeitar rigorosamente as larguras das colunas */
+        }
+        .tabela-info th, .tabela-info td { 
+            border: 1px solid #cbd5e1; 
+            padding: 8px 12px; 
+            text-align: left; 
+            word-wrap: break-word;
+            overflow: hidden;
+        }
+        .tabela-info th { 
+            background-color: #f8fafc; 
+            color: #334155; 
+        }
+        .tabela-info input { 
+            width: 100%; 
+            border: none; 
+            background: transparent; 
+            font-family: inherit; 
+            font-size: 13px; 
+            outline: none; 
+            box-sizing: border-box;
+        }
+        .secao-titulo { 
+            background-color: #f1f5f9; 
+            color: #1d4ed8; 
+            padding: 8px 12px; 
+            font-size: 13px; 
+            font-weight: bold; 
+            text-transform: uppercase; 
+            border-left: 4px solid #1d4ed8; 
+            border: 1px solid #e2e8f0; 
+            margin-top: 25px; 
+            margin-bottom: 10px; 
+        }
+        .secao-texto { 
+            border: 1px solid #e2e8f0; 
+            padding: 10px; 
+            min-height: 70px; 
+            font-size: 13.5px; 
+            line-height: 1.6; 
+            outline: none; 
+            color: #1e293b; 
+            border-radius: 4px;
+            background-color: #fafbfc;
+        }
+        .secao-texto:focus { 
+            background-color: #fff; 
+            border-color: #1d4ed8; 
+        }
+        .status-salvamento {
+            font-size: 12px;
+            color: #15803d;
+            font-weight: 600;
+            background: #dcfce7;
+            padding: 4px 10px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+        @media print { 
+            .no-print { display: none !important; } 
+            body { background: white !important; padding: 0 !important; } 
+            .pagina-doc { box-shadow: none !important; margin: 0 !important; max-width: 100% !important; } 
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print" style="max-width: 850px; margin: 20px auto; display: flex; justify-content: space-between; align-items: center;">
+        <a href="anamneses.html"><button style="padding: 8px 16px; background: #64748b; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">⬅️ Voltar</button></a>
+        <div id="statusAutoSave" class="status-salvamento">💾 Salvamento automático ativo</div>
+    </div>
+
+    <div class="pagina-doc">
+        <div class="cabecalho">
+            <div><strong>FICHA DE ANAMNESE</strong><br><span style="font-size:12px; color:#64748b;">Linguagem Infantil</span></div>
+            <div style="text-align: right; font-size: 12px;"><strong>Ingrid Cruz</strong><br>Fonoaudióloga | CRFa 8-13571</div>
+        </div>
+
+        <!-- IDENTIFICAÇÃO PESSOAL -->
+        <div class="secao-titulo">1. Identificação Pessoal</div>
+        <table class="tabela-info">
+            <colgroup>
+                <col style="width: 22%;">
+                <col style="width: 48%;">
+                <col style="width: 12%;">
+                <col style="width: 18%;">
+            </colgroup>
+            <tr><th>Nome Completo:</th><td colspan="3"><input type="text" id="campo_nome" class="salvavel" placeholder="Nome da criança..."></td></tr>
+            <tr><th>Data de Nascimento:</th><td><input type="text" id="campo_nasc" class="salvavel" placeholder="DD/MM/AAAA"></td><th>Sexo:</th><td><input type="text" id="campo_sexo" class="salvavel" placeholder="F / M"></td></tr>
+            <tr><th>Endereço:</th><td colspan="3"><input type="text" id="campo_end" class="salvavel" placeholder="Endereço residencial..."></td></tr>
+            <tr><th>Telefone:</th><td><input type="text" id="campo_tel" class="salvavel" placeholder="(00) 00000-0000"></td><th>Escolaridade:</th><td><input type="text" id="campo_esc" class="salvavel" placeholder="Escola / Série"></td></tr>
+            <tr><th>E-mail:</th><td><input type="text" id="campo_email" class="salvavel" placeholder="E-mail de contato..."></td><th>Data da Anamnese:</th><td><input type="text" id="dataAtual" class="salvavel"></td></tr>
+        </table>
+
+        <!-- IDENTIFICAÇÃO DOS PAIS (ESPAÇO AMPLIADO PARA NOMES LONGOS) -->
+        <div class="secao-titulo">2. Identificação dos Pais</div>
+        <table class="tabela-info">
+            <colgroup>
+                <col style="width: 22%;">
+                <col style="width: 53%;">
+                <col style="width: 10%;">
+                <col style="width: 15%;">
+            </colgroup>
+            <tr>
+                <th>Nome do Pai:</th>
+                <td><input type="text" id="campo_pai" class="salvavel" placeholder="Nome completo do pai..."></td>
+                <th>Idade / Prof.:</th>
+                <td><input type="text" id="campo_pai_prof" class="salvavel" placeholder="Idade / Prof."></td>
+            </tr>
+            <tr>
+                <th>Nome da Mãe:</th>
+                <td><input type="text" id="campo_mae" class="salvavel" placeholder="Nome completo da mãe..."></td>
+                <th>Idade / Prof.:</th>
+                <td><input type="text" id="campo_mae_prof" class="salvavel" placeholder="Idade / Prof."></td>
+            </tr>
+        </table>
+
+        <!-- QUEIXA E EVOLUÇÃO -->
+        <div class="secao-titulo">3. Queixa Principal e Evolução</div>
+        <label style="font-size: 12px; font-weight: bold; color: #475569;">Queixa Principal:</label>
+        <div class="secao-conteudo secao-texto salvavel-div" id="campo_queixa" contenteditable="true">Descreva o motivo da consulta fonoaudiológica...</div>
+        
+        <label style="font-size: 12px; font-weight: bold; color: #475569; margin-top: 10px; display: block;">Evolução da Queixa (Como começou, se foi repentina/gradual, sintomas associados):</label>
+        <div class="secao-conteudo secao-texto salvavel-div" id="campo_evolucao" contenteditable="true">Descreva como e quando os sintomas surgiram...</div>
+
+        <!-- HISTÓRICO MÉDICO E PRÉ/PERI-NATAL -->
+        <div class="secao-titulo">4. Período Pré, Peri-Natal e Desenvolvimento</div>
+        <table class="tabela-info">
+            <colgroup>
+                <col style="width: 25%;">
+                <col style="width: 25%;">
+                <col style="width: 25%;">
+                <col style="width: 25%;">
+            </colgroup>
+            <tr><th>Tipo de Parto:</th><td><input type="text" id="campo_parto" class="salvavel" value="Normal / Cesárea"></td><th>Termo da Gestação:</th><td><input type="text" id="campo_termo" class="salvavel" value="A termo / Pós-termo"></td></tr>
+            <tr><th>Chorou ao Nascer?</th><td><input type="text" id="campo_chorou" class="salvavel" value="Sim / Não"></td><th>Peso / Estatura:</th><td><input type="text" id="campo_peso" class="salvavel" placeholder="Ex: 3.200 kg / 49 cm"></td></tr>
+            <tr><th>Icterícia / Fototerapia:</th><td><input type="text" id="campo_ictericia" class="salvavel" value="Sim / Não"></td><th>Incubadora:</th><td><input type="text" id="campo_incubadora" class="salvavel" value="Sim / Não"></td></tr>
+            <tr><th>Uso de Medicamentos:</th><td colspan="3"><input type="text" id="campo_meds" class="salvavel" placeholder="Descrever se houve uso na gestação..."></td></tr>
+        </table>
+        
+        <label style="font-size: 12px; font-weight: bold; color: #475569;">Intercorrências na Gestação (Hipertensão, Diabetes, Toxoplasmose, Caxumba, etc.):</label>
+        <div class="secao-conteudo secao-texto salvavel-div" id="campo_intercorrencias" contenteditable="true">Descrever intercorrências gestacionais...</div>
+
+        <!-- DESENVOLVIMENTO, AUDIÇÃO E HÁBITOS -->
+        <div class="secao-titulo">5. Desenvolvimento Motor, Linguagem, Audição e Rotina</div>
+        <div class="secao-conteudo secao-texto salvavel-div" id="campo_desenvolvimento" contenteditable="true">
+            • Interação social / Contato visual / Brincadeiras:<br>
+            • História audiológica (Triagem ou exames realizados):<br>
+            • Hábitos bucais deletérios (chupeta, mamadeira, sucção digital):<br>
+            • Alimentação atual (consistências, mastigação):<br>
+            • Rotina e perfil de interesse da criança:<br>
+        </div>
+
+        <!-- EXAMES, TRATAMENTOS E ENCAMINHAMENTOS -->
+        <div class="secao-titulo">6. Exames, Tratamentos Anteriores e Encaminhamentos</div>
+        <div class="secao-conteudo secao-texto salvavel-div" id="campo_exames" contenteditable="true">
+            • Exames realizados e resultados:<br>
+            • Tratamentos anteriores ou atuais:<br>
+            • Antecedentes familiares e queixas escolares:<br>
+            • Encaminhamentos:<br>
+        </div>
+
+        <!-- BOTÕES DE AÇÃO -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 35px;" class="no-print">
+            <button onclick="limparFormulario()" style="background:#fee2e2; color:#b91c1c; padding:10px 20px; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">Limpar / Nova Ficha</button>
+            <button onclick="window.print()" style="background:#1e293b; color:white; padding:10px 20px; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">Imprimir / Salvar PDF</button>
+        </div>
+    </div>
+
+    <script>
+        if(!document.getElementById('dataAtual').value) {
+            document.getElementById('dataAtual').value = new Date().toLocaleDateString('pt-BR');
+        }
+
+        const CHAVE_STORAGE = "anamnese_linguagem_infantil_dados";
+
+        document.querySelectorAll('.salvavel').forEach(el => {
+            el.addEventListener('input', () => { salvarDados(); });
+        });
+
+        document.querySelectorAll('.salvavel-div').forEach(el => {
+            el.addEventListener('input', () => { salvarDados(); });
+        });
+
+        function salvarDados() {
+            const dados = {};
+            document.querySelectorAll('.salvavel').forEach(el => { dados[el.id] = el.value; });
+            document.querySelectorAll('.salvavel-div').forEach(el => { dados[el.id] = el.innerHTML; });
+            localStorage.setItem(CHAVE_STORAGE, JSON.stringify(dados));
+            
+            const status = document.getElementById('statusAutoSave');
+            status.innerText = "💾 Salvo automaticamente";
+            setTimeout(() => { status.innerText = "💾 Salvamento automático ativo"; }, 2000);
+        }
+
+        function carregarDados() {
+            const salvos = localStorage.getItem(CHAVE_STORAGE);
+            if (!salvos) return;
+            const dados = JSON.parse(salvos);
+            for (const id in dados) {
+                const el = document.getElementById(id);
+                if (el) {
+                    if (el.tagName === 'INPUT') { el.value = dados[id]; } 
+                    else { el.innerHTML = dados[id]; }
+                }
+            }
+        }
+
+        function limparFormulario() {
+            if (confirm("Deseja realmente limpar todos os dados preenchidos desta anamnese?")) {
+                localStorage.removeItem(CHAVE_STORAGE);
+                location.reload();
+            }
+        }
+
+        window.onload = carregarDados;
+    </script>
+</body>
+</html>

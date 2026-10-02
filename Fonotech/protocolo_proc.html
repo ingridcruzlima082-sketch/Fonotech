@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Protocolo de Observação Comportamental (PROC) - FonoTech</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .pagina-doc { 
+            max-width: 950px; 
+            margin: 30px auto; 
+            background: #fff; 
+            padding: 40px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06); 
+            font-family: 'Helvetica Neue', Arial, sans-serif; 
+            color: #222; 
+        }
+        .cabecalho-tabela {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+        .cabecalho-tabela th, .cabecalho-tabela td {
+            border: 1px solid #1e293b;
+            padding: 6px 10px;
+        }
+        .cabecalho-tabela th {
+            background-color: #f1f5f9;
+            text-align: center;
+        }
+        .tabela-proc {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+            font-size: 12.5px;
+        }
+        .tabela-proc th, .tabela-proc td {
+            border: 1px solid #cbd5e1;
+            padding: 6px 8px;
+            text-align: left;
+        }
+        .tabela-proc th {
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        .titulo-secao {
+            background-color: #e2e8f0;
+            color: #1e293b;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 13px;
+            padding: 8px;
+            border: 1px solid #1e293b;
+        }
+        .total-linha {
+            background-color: #fef08a !important;
+            font-weight: bold;
+            text-align: right;
+        }
+        .input-num {
+            width: 60px;
+            border: none;
+            background: transparent;
+            text-align: center;
+            font-weight: bold;
+            font-size: 13px;
+            outline: none;
+        }
+        .input-texto {
+            width: 100%;
+            border: none;
+            background: transparent;
+            font-family: inherit;
+            font-size: 12.5px;
+            outline: none;
+        }
+        .input-obs {
+            width: 100%;
+            border: 1px dashed #cbd5e1;
+            padding: 6px;
+            background: #fafafa;
+            font-size: 12px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            outline: none;
+        }
+        .sintese-tabela {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 13px;
+        }
+        .sintese-tabela th, .sintese-tabela td {
+            border: 1px solid #1e293b;
+            padding: 8px;
+            text-align: center;
+        }
+        .sintese-tabela th {
+            background-color: #f1f5f9;
+        }
+        .status-salvamento {
+            font-size: 12px;
+            color: #15803d;
+            font-weight: 600;
+            background: #dcfce7;
+            padding: 4px 10px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+        @media print { 
+            .no-print { display: none !important; } 
+            body { background: white !important; padding: 0 !important; } 
+            .pagina-doc { box-shadow: none !important; margin: 0 !important; max-width: 100% !important; padding: 10px !important; } 
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print" style="max-width: 950px; margin: 20px auto; display: flex; justify-content: space-between; align-items: center;">
+        <a href="avaliacoes.html"><button style="padding: 8px 16px; background: #64748b; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">⬅️ Voltar</button></a>
+        <div id="statusAutoSave" class="status-salvamento">💾 Salvamento automático ativo</div>
+    </div>
+
+    <div class="pagina-doc">
+        <!-- CABEÇALHO DO PROTOCOLO -->
+        <table class="cabecalho-tabela">
+            <tr>
+                <th colspan="4" style="background-color: #fce7f3; font-size: 14px; font-weight: bold;">PROTOCOLO DE OBSERVAÇÃO COMPORTAMENTAL (PROC)</th>
+            </tr>
+            <tr>
+                <th colspan="4" style="background-color: #fce7f3;">Jaime Zorzi e Simone Hage (2004) - 12 a 48 meses</th>
+            </tr>
+            <tr>
+                <td colspan="2"><strong>Nome da criança:</strong> <input type="text" id="p_nome" class="salvavel input-texto" placeholder="Nome completo..."></td>
+                <td colspan="2"><strong>DN / Idade:</strong> <input type="text" id="p_dn" class="salvavel input-texto" placeholder="Ex: 6 anos e 4 meses"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><strong>Data da avaliação:</strong> <input type="text" id="p_data" class="salvavel input-texto"></td>
+                <td colspan="2"><strong>Avaliador:</strong> <input type="text" id="p_aval" class="salvavel input-texto" value="Ingrid Cruz"></td>
+            </tr>
+            <tr>
+                <td colspan="4" style="background-color: #fef08a;"><strong>Colocar o grupo ao qual a criança pertence:</strong> <input type="text" id="p_grupo" class="salvavel input-texto" placeholder="Informe o grupo..."></td>
+            </tr>
+        </table>
+
+        <!-- 1. HABILIDADES COMUNICATIVAS -->
+        <table class="tabela-proc">
+            <tr><td colspan="2" class="titulo-secao">1. HABILIDADES COMUNICATIVAS DA CRIANÇA</td></tr>
+            <tr><td colspan="2" style="background-color: #f8fafc; font-weight: bold;">1a. Habilidades dialógicas ou conversacionais</td></tr>
+            <tr>
+                <td style="width: 85%;">Intenção comunicativa</td>
+                <td style="width: 15%; text-align: center;"><input type="number" id="s1_1" class="salvavel calc-hab input-num" value="0" min="0" max="4" oninput="calcularTotais()"></td>
+            </tr>
+            <tr>
+                <td>Inicia a conversação / interação</td>
+                <td style="text-align: center;"><input type="number" id="s1_2" class="salvavel calc-hab input-num" value="0" min="0" max="4" oninput="calcularTotais()"></td>
+            </tr>
+            <tr>
+                <td>Responde ao interlocutor</td>
+                <td style="text-align: center;"><input type="number" id="s1_3" class="salvavel calc-hab input-num" value="0" min="0" max="4" oninput="calcularTotais()"></td>
+            </tr>
+            <tr>
+                <td>Aguarda seu turno (não se precipita, interrompendo)</td>
+                <td style="text-align: center;"><input type="number" id="s1_4" class="salvavel calc-hab input-num" value="0" min="0" max="4" oninput="calcularTotais()"></td>
+            </tr>
+            <tr>
+                <td>Participa ativamente da atividade dialógica (alternância de turnos)</td>
+                <td style="text-align: center;"><input type="number" id="s1_5" class="salvavel calc-hab input-num" value="0" min="0" max="4" oninput="calcularTotais()"></td>
+            </tr>
+            <tr>
+                <td class="total-linha">TOTAL 1a (máximo 20 pontos):</td>
+                <td style="text-align: center; background-color: #fef08a; font-weight: bold;" id="tot_1a">0</td>
+            </tr>
+        </table>
+        <div style="font-size: 11px; font-weight: bold; color: #b91c1c;">Observações 1a:</div>
+        <input type="text" id="obs_1a" class="salvavel input-obs" placeholder="Observações sobre Habilidades Dialógicas...">
+
+        <!-- 1b. Funções Comunicativas -->
+        <table class="tabela-proc">
+            <tr><td colspan="2" style="background-color: #f8fafc; font-weight: bold;">1b. Funções Comunicativas</td></tr>
+            <tr><td>Instrumental - solicitação de objetos, ações</td><td style="width: 15%; text-align: center;"><input type="number" id="s1_b1" class="salvavel calc-hab input-num" value="0" min="0" max="2" oninput="calcularTotais()"></td></tr>
+            <tr><td>Protesto – interrupção com fala ou ação indesejada</td><td style="text-align: center;"><input type="number" id="s1_b2" class="salvavel calc-hab input-num" value="0" min="0" max="2" oninput="calcularTotais()"></td></tr>
+            <tr><td>Interativa – uso de expressões sociais (oi, tchau)</td><td style="text-align: center;"><input type="number" id="s1_b3" class="salvavel calc-hab input-num" value="0" min="0" max="2" oninput="calcularTotais()"></td></tr>
+            <tr><td>Nomeação – espontânea de objetos, pessoas, ações</td><td style="text-align: center;"><input type="number" id="s1_b4" class="salvavel calc-hab input-num" value="0" min="0" max="2" oninput="calcularTotais()"></td></tr>
+            <tr><td>Informativa – comentários, informações espontâneas</td><td style="text-align: center;"><input type="number" id="s1_b5" class="salvavel calc-hab input-num" value="0" min="0" max="2" oninput="calcularTotais()"></td></tr>
+            <tr><td>Heurística – solicitação de informação ou permissão</td><td style="text-align: center;"><input type="number" id="s1_b6" class="salvavel calc-hab input-num" value="0" min="0" max="2" oninput="calcularTotais()"></td></tr>
+            <tr><td>Narrativa – presença de turnos narrativos</td><td style="text-align: center;"><input type="number" id="s1_b7" class="salvavel calc-hab input-num" value="0" min="0" max="2" oninput="calcularTotais()"></td></tr>
+            <tr>
+                <td class="total-linha">TOTAL 1b (máximo 15 pontos):</td>
+                <td style="text-align: center; background-color: #fef08a; font-weight: bold;" id="tot_1b">0</td>
+            </tr>
+        </table>
+        <div style="font-size: 11px; font-weight: bold; color: #b91c1c;">Observações 1b:</div>
+        <input type="text" id="obs_1b" class="salvavel input-obs" placeholder="Observações sobre Funções Comunicativas...">
+
+        <!-- 1c e 1d -->
+        <table class="tabela-proc">
+            <tr><td colspan="2" style="background-color: #f8fafc; font-weight: bold;">1c. Meios de Comunicação (Gestual e Verbal) / 1d. Níveis de Contextualização</td></tr>
+            <tr>
+                <td>Pontuação obtida em Meios de Comunicação e Verbal (Máx 20):</td>
+                <td style="width: 15%; text-align: center;"><input type="number" id="s1_c" class="salvavel calc-hab input-num" value="0" min="0" max="20" oninput="calcularTotais()"></td>
+            </tr>
+            <tr>
+                <td>Pontuação obtida em Níveis de Contextualização (Máx 15):</td>
+                <td style="text-align: center;"><input type="number" id="s1_d" class="salvavel calc-hab input-num" value="0" min="0" max="15" oninput="calcularTotais()"></td>
+            </tr>
+            <tr>
+                <td class="total-linha">TOTAL HABILIDADES COMUNICATIVAS (Máx 70):</td>
+                <td style="text-align: center; background-color: #fca5a5; font-weight: bold;" id="tot_hab_geral">0</td>
+            </tr>
+        </table>
+        <div style="font-size: 11px; font-weight: bold; color: #b91c1c;">Observações Habilidades Comunicativas:</div>
+        <input type="text" id="obs_hab" class="salvavel input-obs" placeholder="Observações gerais...">
+
+        <!-- 2. COMPREENSÃO DA LINGUAGEM -->
+        <table class="tabela-proc">
+            <tr><td colspan="2" class="titulo-secao">2. COMPREENSÃO DA LINGUAGEM VERBAL</td></tr>
+            <tr>
+                <td>Pontuação de Compreensão (Máx 60):<br><span style="font-size: 11px; color: #64748b;">(Ex: 0 a 60 conforme ordens e respostas atendidas)</span></td>
+                <td style="width: 15%; text-align: center;"><input type="number" id="val_comp" class="salvavel calc-comp input-num" value="0" min="0" max="60" oninput="calcularTotais()"></td>
+            </tr>
+            <tr>
+                <td class="total-linha">TOTAL COMPREENSÃO (Máx 60):</td>
+                <td style="text-align: center; background-color: #fca5a5; font-weight: bold;" id="tot_comp_geral">0</td>
+            </tr>
+        </table>
+        <div style="font-size: 11px; font-weight: bold; color: #b91c1c;">Observações Compreensão:</div>
+        <input type="text" id="obs_comp" class="salvavel input-obs" placeholder="Observações sobre compreensão...">
+
+        <!-- 3. ASPECTOS COGNITIVOS -->
+        <table class="tabela-proc">
+            <tr><td colspan="2" class="titulo-secao">3. ASPECTOS DO DESENVOLVIMENTO COGNITIVO</td></tr>
+            <tr><td>3a. Forma de manipulação dos objetos (Máx 10):</td><td style="width: 15%; text-align: center;"><input type="number" id="cog_a" class="salvavel calc-cog input-num" value="0" min="0" max="10" oninput="calcularTotais()"></td></tr>
+            <tr><td>3b. Nível de desenvolvimento do simbolismo (Máx 20):</td><td style="text-align: center;"><input type="number" id="cog_b" class="salvavel calc-cog input-num" value="0" min="0" max="20" oninput="calcularTotais()"></td></tr>
+            <tr><td>3c. Nível de organização do brinquedo (Máx 20):</td><td style="text-align: center;"><input type="number" id="cog_c" class="salvavel calc-cog input-num" value="0" min="0" max="20" oninput="calcularTotais()"></td></tr>
+            <tr><td>3d. Imitação gestual e sonora (Máx 20):</td><td style="text-align: center;"><input type="number" id="cog_d" class="salvavel calc-cog input-num" value="0" min="0" max="20" oninput="calcularTotais()"></td></tr>
+            <tr>
+                <td class="total-linha">TOTAL ASPECTOS COGNITIVOS (Máx 70):</td>
+                <td style="text-align: center; background-color: #fca5a5; font-weight: bold;" id="tot_cog_geral">0</td>
+            </tr>
+        </table>
+        <div style="font-size: 11px; font-weight: bold; color: #b91c1c;">Observações Cognitivo:</div>
+        <input type="text" id="obs_cog" class="salvavel input-obs" placeholder="Observações sobre aspectos cognitivos...">
+
+        <!-- TABELA SÍNTESE FINAL -->
+        <div class="titulo-secao" style="margin-top: 25px;">QUADRO SÍNTESE DOS RESULTADOS</div>
+        <table class="sintese-tabela">
+            <tr>
+                <th>Aspectos observados</th>
+                <th>Pontuação da criança</th>
+                <th>Pontuação média 2 anos</th>
+                <th>Pontuação média 3 anos</th>
+                <th>Pontuação máxima</th>
+            </tr>
+            <tr>
+                <td style="text-align: left;">1. Habilidades comunicativas (expressivas):</td>
+                <td style="background-color: #fca5a5; font-weight: bold;" id="res_hab">0</td>
+                <td>51,44</td>
+                <td>58,12</td>
+                <td>70</td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">2. Compreensão da linguagem verbal:</td>
+                <td style="background-color: #fca5a5; font-weight: bold;" id="res_comp">0</td>
+                <td>50,70</td>
+                <td>59,41</td>
+                <td>60</td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">3. Aspectos do desenvolvimento cognitivo:</td>
+                <td style="background-color: #fca5a5; font-weight: bold;" id="res_cog">0</td>
+                <td>31,96</td>
+                <td>44,53</td>
+                <td>70</td>
+            </tr>
+            <tr style="font-weight: bold; background-color: #fef08a;">
+                <td style="text-align: left;">Total da pontuação:</td>
+                <td id="res_total">0</td>
+                <td>137,11</td>
+                <td>162,06</td>
+                <td>200</td>
+            </tr>
+        </table>
+
+        <div style="font-size: 11px; font-weight: bold; color: #b91c1c; margin-top: 15px;">Parecer / Observações Finais:</div>
+        <input type="text" id="parecer_final" class="salvavel input-obs" placeholder="Ex: Criança bem mais comunicativa. Contato visual e boa compreensão...">
+
+        <!-- BOTÕES DE AÇÃO -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 35px;" class="no-print">
+            <button onclick="limparFormulario()" style="background:#fee2e2; color:#b91c1c; padding:10px 20px; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">Limpar Ficha</button>
+            <button onclick="window.print()" style="background:#1e293b; color:white; padding:10px 20px; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">Imprimir / Salvar PDF</button>
+        </div>
+    </div>
+
+    <script>
+        if(!document.getElementById('p_data').value) {
+            document.getElementById('p_data').value = new Date().toLocaleDateString('pt-BR');
+        }
+
+        const CHAVE_STORAGE = "ficha_protocolo_proc_v2";
+
+        function calcularTotais() {
+            // 1a
+            let t1a = 0;
+            for(let i=1; i<=5; i++) {
+                t1a += Number(document.getElementById('s1_' + i).value) || 0;
+            }
+            document.getElementById('tot_1a').innerText = t1a;
+
+            // 1b
+            let t1b = 0;
+            for(let i=1; i<=7; i++) {
+                t1b += Number(document.getElementById('s1_b' + i).value) || 0;
+            }
+            document.getElementById('tot_1b').innerText = t1b;
+
+            // Total Habilidades Comunicativas (1a + 1b + 1c + 1d)
+            let c1c = Number(document.getElementById('s1_c').value) || 0;
+            let c1d = Number(document.getElementById('s1_d').value) || 0;
+            let totHab = t1a + t1b + c1c + c1d;
+            document.getElementById('tot_hab_geral').innerText = totHab;
+            document.getElementById('res_hab').innerText = totHab;
+
+            // Total Compreensão
+            let totComp = Number(document.getElementById('val_comp').value) || 0;
+            document.getElementById('tot_comp_geral').innerText = totComp;
+            document.getElementById('res_comp').innerText = totComp;
+
+            // Total Cognitivo
+            let cogA = Number(document.getElementById('cog_a').value) || 0;
+            let cogB = Number(document.getElementById('cog_b').value) || 0;
+            let cogC = Number(document.getElementById('cog_c').value) || 0;
+            let cogD = Number(document.getElementById('cog_d').value) || 0;
+            let totCog = cogA + cogB + cogC + cogD;
+            document.getElementById('tot_cog_geral').innerText = totCog;
+            document.getElementById('res_cog').innerText = totCog;
+
+            // Total Geral
+            let totalGeral = totHab + totComp + totCog;
+            document.getElementById('res_total').innerText = totalGeral;
+
+            salvarDados();
+        }
+
+        document.querySelectorAll('.salvavel').forEach(el => {
+            el.addEventListener('input', () => { calcularTotais(); });
+        });
+
+        function salvarDados() {
+            const dados = {};
+            document.querySelectorAll('.salvavel').forEach(el => { dados[el.id] = el.value; });
+            localStorage.setItem(CHAVE_STORAGE, JSON.stringify(dados));
+            
+            const status = document.getElementById('statusAutoSave');
+            status.innerText = "💾 Salvo automaticamente";
+            setTimeout(() => { status.innerText = "💾 Salvamento automático ativo"; }, 2000);
+        }
+
+        function carregarDados() {
+            const salvos = localStorage.getItem(CHAVE_STORAGE);
+            if (!salvos) return;
+            const dados = JSON.parse(salvos);
+            for (const id in dados) {
+                const el = document.getElementById(id);
+                if (el) { el.value = dados[id]; }
+            }
+            calcularTotais();
+        }
+
+        function limparFormulario() {
+            if (confirm("Deseja realmente limpar todos os dados preenchidos deste protocolo?")) {
+                localStorage.removeItem(CHAVE_STORAGE);
+                location.reload();
+            }
+        }
+
+        window.onload = carregarDados;
+    </script>
+</body>
+</html>
