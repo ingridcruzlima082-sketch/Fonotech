@@ -2,175 +2,139 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Evolução Clínica - FonoTech</title>
+    <title>Relatório de Desempenho - FonoTech</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .pagina-documento {
-            max-width: 800px;
-            margin: 20px auto 80px auto;
-            background: #fff;
-            padding: 50px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            color: #222;
-        }
-
-        .cabecalho-doc {
-            display: flex;
-            justify-content: flex-end;
-            align-items: flex-start;
-            border-bottom: 2px solid #ca6702;
-            padding-bottom: 15px;
+        .card-relatorio {
+            background: #FFFDF9;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1.5px solid #CDD98D;
             margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(88, 28, 35, 0.05);
         }
-
-        .dados-profissional {
-            text-align: right;
-            font-size: 14px;
-            line-height: 1.5;
-            color: #333;
-        }
-
-        .data-emissao {
-            text-align: right;
-            margin: 25px 0;
-            font-size: 15px;
-        }
-
-        .titulo-doc {
-            text-align: center;
-            font-size: 20px;
-            font-weight: bold;
-            color: #ca6702;
-            margin: 30px 0;
-            letter-spacing: 0.5px;
-        }
-
-        .bloco-paciente {
-            margin-bottom: 25px;
-            font-size: 15px;
-        }
-
-        .campo-paciente {
+        .tabela-desempenho {
             width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-family: inherit;
-            font-size: 15px;
-            margin-top: 5px;
-            box-sizing: border-box;
+            border-collapse: collapse;
+            margin-top: 15px;
+            margin-bottom: 20px;
         }
-
-        .conteudo-evolucao {
-            font-size: 16px;
-            line-height: 1.8;
-            text-align: justify;
-            min-height: 250px;
-            margin-bottom: 50px;
-            outline: none;
-            border-top: 1px dashed #ddd;
-            border-bottom: 1px dashed #ddd;
-            padding: 20px 0;
+        .tabela-desempenho th, .tabela-desempenho td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #CDD98D;
+            font-size: 14.5px;
         }
-
-        .area-assinatura {
-            text-align: center;
-            margin-top: 60px;
+        .tabela-desempenho th {
+            background-color: #CDD98D;
+            color: #581C23;
+            font-family: 'Playfair Display', serif;
         }
-
         @media print {
-            @page { margin: 2cm; }
-            .no-print, button { display: none !important; }
+            .no-print { display: none !important; }
             body { background: white !important; padding: 0 !important; }
-            .pagina-documento { border: none !important; box-shadow: none !important; padding: 0 !important; margin: 0 !important; max-width: 100% !important; }
-            .campo-paciente { border: none !important; background: transparent !important; padding: 0 !important; }
+            .container-hub { box-shadow: none !important; border: none !important; margin: 0 !important; width: 100% !important; max-width: 100% !important; }
         }
     </style>
 </head>
 <body>
-    <div class="no-print" style="max-width: 800px; margin: 10px auto;">
-        <a href="index.html"><button type="button">⬅️ Voltar ao Menu Principal</button></a>
+    <div class="no-print" style="max-width: 950px; margin: 0 auto 20px auto;">
+        <a href="index.html" style="text-decoration: none;"><button type="button" class="btn-voltar-topo">⬅️ Voltar ao Menu Principal</button></a>
     </div>
 
-    <div class="pagina-documento">
-        <!-- CABEÇALHO PROFISSIONAL -->
-        <div class="cabecalho-doc">
-            <div class="dados-profissional">
-                <strong>Ingrid Cruz</strong><br>
-                Fonoaudióloga<br>
-                CRFa 8-13571
+    <div class="container-hub">
+        <div class="cabecalho-hub">
+            <h1>📊 Relatório de Desempenho e Evolução</h1>
+            <p>Selecione o paciente cadastrado para visualizar o histórico de jogos e atividades</p>
+        </div>
+
+        <!-- SELEÇÃO DE PACIENTE -->
+        <div class="card-relatorio">
+            <h2 style="margin-top: 0; font-size: 18px; color: #581C23; border-bottom: 2px solid #CDD98D; padding-bottom: 8px;">Seleção de Paciente</h2>
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 15px; align-items: end; margin-top: 15px;">
+                <div>
+                    <label style="font-weight: bold; display: block; margin-bottom: 5px; color: #581C23;">Escolher Paciente:</label>
+                    <select id="selectPaciente" onchange="carregarDesempenho()" style="width: 100%; padding: 12px; border: 1px solid #CDD98D; border-radius: 10px; font-family: 'Lora', serif; background: #FFFDF9; font-size: 14.5px; box-sizing: border-box;">
+                        <option value="">Selecione um paciente...</option>
+                    </select>
+                </div>
+                <div>
+                    <button type="button" onclick="carregarDesempenho()" class="no-print" style="background-color: #CDD98D; color: #581C23; border: 1.5px solid #581C23; padding: 12px; font-weight: bold; border-radius: 10px; cursor: pointer; width: 100%; font-family: 'Lora', serif; font-size: 14.5px;">🔄 Atualizar</button>
+                </div>
             </div>
         </div>
 
-        <!-- DATA -->
-        <div class="data-emissao" id="dataAtualTexto">
-            Natal, RN, 13 de Setembro de 2026.
+        <!-- TABELA DE ATIVIDADES REALIZADAS -->
+        <div class="card-relatorio">
+            <h2 style="margin-top: 0; font-size: 18px; color: #581C23; border-bottom: 2px solid #CDD98D; padding-bottom: 8px;">Atividades Realizadas e Desempenho</h2>
+            <div style="overflow-x: auto;">
+                <table class="tabela-desempenho">
+                    <thead>
+                        <tr>
+                            <th>Atividade / Jogo</th>
+                            <th>Resultado (Acertos e Erros)</th>
+                            <th>Data</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaResultados">
+                        <tr><td colspan="3" style="text-align: center; color: #713f12; font-style: italic;">Selecione um paciente acima para ver o relatório.</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <!-- TÍTULO -->
-        <div class="titulo-doc">
-            REGISTRO DE EVOLUÇÃO CLÍNICA
+        <div style="text-align: center; margin-top: 30px;" class="no-print">
+            <button type="button" onclick="window.print()" style="background-color: #F33F0A; color: white; border: none; padding: 12px 30px; font-size: 16px; font-weight: bold; border-radius: 12px; cursor: pointer; font-family: 'Lora', serif; box-shadow: 0 4px 12px rgba(243, 63, 10, 0.2);">🖨️ Imprimir Relatório</button>
         </div>
 
-        <!-- IDENTIFICAÇÃO DO PACIENTE -->
-        <div class="bloco-paciente">
-            <label><strong>Paciente:</strong></label>
-            <input type="text" id="nomePaciente" class="campo-paciente" placeholder="Digite o nome completo do paciente...">
-        </div>
-
-        <!-- CORPO DA EVOLUÇÃO (EDITÁVEL DIRETAMENTE) -->
-        <div class="conteudo-evolucao" contenteditable="true">
-            <strong>Conduta e Desenvolvimento da Sessão:</strong><br><br>
-            - Atendimento realizado com foco em estimulação fonoaudiológica;<br>
-            - Resposta do paciente frente aos estímulos propostos;<br>
-            - Observações clínicas e conduta para a próxima sessão.
-        </div>
-
-        <!-- ASSINATURA -->
-        <div class="area-assinatura">
-            <p>__________________________________________________</p>
-            <p><strong>Ingrid Cruz</strong><br>Fonoaudióloga | CRFa 8-13571</p>
-        </div>
-
-        <!-- BOTOES DE AÇÃO -->
-        <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 40px;" class="no-print">
-            <button type="button" onclick="salvarEvolucao()" style="background-color: #2b9348; color: white; padding: 12px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">💾 Salvar no Histórico</button>
-            <button type="button" onclick="window.print()" style="background-color: #ca6702; color: white; padding: 12px 25px; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold;">🖨️ Imprimir / Salvar PDF</button>
-        </div>
+        <footer>
+            <p>FonoTech &copy; 2026 - Plataforma Clínica Fonoaudiológica</p>
+        </footer>
     </div>
 
-    <footer class="no-print" style="position: fixed; bottom: 0; left: 0; width: 100%; background: #005f73; color: white; text-align: center; padding: 10px;">
-        <p><strong>Ingrid Cruz</strong> | Fonoaudióloga | CRFa 8-13571</p>
-    </footer>
-
     <script>
-        // Data por extenso automática
-        const meses = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
-        const d = new Date();
-        document.getElementById('dataAtualTexto').innerText = `Natal, RN, ${d.getDate()} de ${meses[d.getMonth()]} de ${d.getFullYear()}.`;
+        // Puxa diretamente os pacientes cadastrados na sua pasta de pacientes
+        function inicializarPacientes() {
+            const pacientes = JSON.parse(localStorage.getItem('fonotech_pacientes')) || [];
+            const select = document.getElementById('selectPaciente');
+            select.innerHTML = '<option value="">Selecione um paciente...</option>';
+            
+            pacientes.forEach((p) => {
+                select.innerHTML += `<option value="${p.nome}">${p.nome}</option>`;
+            });
+        }
 
-        function salvarEvolucao() {
-            const nome = document.getElementById('nomePaciente').value.trim();
-            if (!nome) {
-                alert("⚠️ Por favor, informe o nome do paciente antes de salvar!");
+        // Puxa o histórico de jogos correspondente ao paciente escolhido
+        function carregarDesempenho() {
+            const nomePaciente = document.getElementById('selectPaciente').value;
+            const tbody = document.getElementById('tabelaResultados');
+            tbody.innerHTML = '';
+
+            if (!nomePaciente) {
+                tbody.innerHTML = '<tr><td colspan="3" style="text-align: center; color: #713f12; font-style: italic;">Selecione um paciente para carregar o relatório.</td></tr>';
                 return;
             }
 
-            const chave = "historico_" + nome.toLowerCase();
-            const historico = JSON.parse(localStorage.getItem(chave)) || [];
+            const historicoGeral = JSON.parse(localStorage.getItem('fonotech_historico_jogos')) || [];
+            const historicoPaciente = historicoGeral.filter(item => item.paciente === nomePaciente);
 
-            historico.push({
-                jogo: "Evolução Clínica",
-                sessao: historico.length + 1,
-                pontuacao: "Evolução registrada com sucesso",
-                data: new Date().toLocaleDateString("pt-BR")
+            if (historicoPaciente.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="3" style="text-align: center; color: #713f12; font-style: italic;">Ainda não existem registos de jogos guardados para este paciente.</td></tr>';
+                return;
+            }
+
+            historicoPaciente.forEach((h) => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td style="font-weight: 600; color: #581C23;">${h.atividade}</td>
+                        <td><span style="background: #CDD98D; padding: 5px 12px; border-radius: 6px; font-weight: bold; color: #581C23; display: inline-block;">${h.desempenho}</span></td>
+                        <td style="color: #666; font-size: 13.5px;">${h.data}</td>
+                    </tr>
+                `;
             });
-
-            localStorage.setItem(chave, JSON.stringify(historico));
-            alert(`✅ Evolução clínica salva no histórico do paciente ${nome}!`);
         }
+
+        window.onload = inicializarPacientes;
     </script>
 </body>
 </html>

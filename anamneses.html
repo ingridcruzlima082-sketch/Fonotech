@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Central de Anamneses - FonoTech</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .container-hub {
+            max-width: 950px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            padding: 60px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(91, 33, 182, 0.06), 0 5px 15px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+        }
+        .cabecalho-hub {
+            text-align: center;
+            border-bottom: 1px solid rgba(216, 180, 254, 0.4);
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+        }
+        .cabecalho-hub h1 {
+            color: #2d2640;
+            margin: 0 0 10px 0;
+            font-size: 34px;
+            font-weight: 700;
+        }
+        .botoes-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        @media (max-width: 768px) { .botoes-grid { grid-template-columns: 1fr; } }
+        .botoes-grid a { text-decoration: none; display: flex; }
+        .botoes-grid button {
+            width: 100% !important;
+            height: 85px !important;
+            padding: 0 24px !important;
+            border-radius: 14px !important;
+            font-size: 15px !important;
+            font-weight: 600 !important;
+            cursor: pointer !important;
+            transition: all 0.25s ease-in-out !important;
+            text-align: left !important;
+            display: flex !important;
+            align-items: center !important;
+            background-color: #e0f2fe !important;
+            color: #0369a1 !important;
+            border: 1px solid rgba(186, 230, 253, 0.6) !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02) !important;
+        }
+        .botoes-grid button:hover {
+            transform: translateY(-2px);
+            filter: brightness(0.97);
+        }
+    </style>
+</head>
+<body>
+    <div style="max-width: 950px; margin: 20px auto 0 auto;" class="no-print">
+        <a href="index.html" style="text-decoration: none;"><button type="button" style="padding: 10px 20px; background-color: #ede9fe; color: #5b21b6; border: none; border-radius: 12px; font-weight: bold; cursor: pointer;">⬅️ Voltar ao Menu Principal</button></a>
+    </div>
+
+    <div class="container-hub">
+        <div class="cabecalho-hub">
+            <h1>Fichas de Anamnese Clínica</h1>
+            <p style="color: #6e6280; margin: 0;">Selecione o protocolo especializado para preenchimento e anamnese detalhada</p>
+        </div>
+
+        <div class="botoes-grid">
+            <a href="anamnese_linguagem_infantil.html"><button type="button">Anamnese de Linguagem Infantil</button></a>
+            <!-- Futuros modelos de anamnese podem ser adicionados aqui -->
+        </div>
+    </div>
+</body>
+</html>

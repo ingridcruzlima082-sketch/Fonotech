@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Protocolo MBGR (Simplificado) - FonoTech</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .pagina-doc { 
+            max-width: 900px; 
+            margin: 30px auto; 
+            background: #fff; 
+            padding: 40px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06); 
+            font-family: 'Helvetica Neue', Arial, sans-serif; 
+            color: #222; 
+        }
+        .cabecalho-doc { 
+            border-bottom: 1.5px solid #1e293b; 
+            padding-bottom: 12px; 
+            margin-bottom: 20px; 
+            text-align: center;
+        }
+        .tabela-info { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-bottom: 20px; 
+            font-size: 13px; 
+        }
+        .tabela-info th, .tabela-info td { 
+            border: 1px solid #1e293b; 
+            padding: 6px 10px; 
+            text-align: left; 
+        }
+        .tabela-info th { 
+            background-color: #f1f5f9; 
+            color: #1e293b; 
+        }
+        .tabela-info input { 
+            width: 100%; 
+            border: none; 
+            background: transparent; 
+            font-family: inherit; 
+            font-size: 13px; 
+            outline: none; 
+        }
+        .painel-resumo {
+            background-color: #fef08a;
+            border: 1px solid #ca8a04;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #713f12;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .secao-titulo { 
+            background-color: #e2e8f0; 
+            color: #1e293b; 
+            padding: 6px 10px; 
+            font-size: 13px; 
+            font-weight: bold; 
+            text-transform: uppercase; 
+            border: 1px solid #1e293b; 
+            margin-top: 20px; 
+            margin-bottom: -1px; 
+        }
+        .tabela-mbgr { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-bottom: 15px; 
+            font-size: 12.5px; 
+        }
+        .tabela-mbgr th, .tabela-mbgr td { 
+            border: 1px solid #cbd5e1; 
+            padding: 8px 10px; 
+            text-align: left; 
+        }
+        .tabela-mbgr th { 
+            background-color: #f8fafc; 
+            color: #334155; 
+        }
+        .tabela-mbgr input[type="text"] { 
+            width: 100%; 
+            border: none; 
+            background: transparent; 
+            font-family: inherit; 
+            font-size: 13px; 
+            outline: none; 
+            text-align: center;
+            font-weight: bold;
+            color: #1d4ed8;
+        }
+        .status-salvamento {
+            font-size: 12px;
+            color: #15803d;
+            font-weight: 600;
+            background: #dcfce7;
+            padding: 4px 10px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+        @media print { 
+            .no-print { display: none !important; } 
+            body { background: white !important; padding: 0 !important; } 
+            .pagina-doc { box-shadow: none !important; margin: 0 !important; max-width: 100% !important; padding: 10px !important; } 
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print" style="max-width: 900px; margin: 20px auto; display: flex; justify-content: space-between; align-items: center;">
+        <a href="avaliacoes.html"><button style="padding: 8px 16px; background: #64748b; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">⬅️ Voltar</button></a>
+        <div id="statusAutoSave" class="status-salvamento">💾 Salvamento automático ativo</div>
+    </div>
+
+    <div class="pagina-doc">
+        <div class="cabecalho-doc">
+            <div style="font-size: 11px; font-weight: bold; color: #64748b;">AVALIAÇÃO MIOFUNCIONAL OROFACIAL</div>
+            <div style="font-size: 16px; font-weight: bold; color: #1e293b; margin-top: 4px;">PROTOCOLO MBGR (Versão Clínica Simplificada)</div>
+            <div style="font-size: 13px; font-weight: bold; color: #1d4ed8; margin-top: 2px;">Folha Consolidada de Lançamento de Escores[cite: 15]</div>
+        </div>
+
+        <!-- IDENTIFICAÇÃO -->
+        <table class="tabela-info">
+            <tr>
+                <td style="width: 45%;"><strong>Nome:</strong> <input type="text" id="mbgr_nome" class="salvavel" placeholder="Nome completo...">[cite: 15]</td>
+                <td style="width: 25%;"><strong>Data Nasc.:</strong> <input type="text" id="mbgr_nasc" class="salvavel" placeholder="DD/MM/AAAA">[cite: 15]</td>
+                <td style="width: 12%;"><strong>Idade:</strong> <input type="text" id="mbgr_idade" class="salvavel" placeholder="Anos/Meses">[cite: 15]</td>
+                <td style="width: 18%;"><strong>Data Exame:</strong> <input type="text" id="mbgr_data" class="salvavel">[cite: 15]</td>
+            </tr>
+        </table>
+
+        <!-- PAINEL DE SOMA AUTOMÁTICA DOS ESCORES -->
+        <div class="painel-resumo">
+            <span>📊 Escore Geral Acumulado (Soma das Alterações):</span>
+            <span id="escoreTotal" style="font-size: 18px; background: #ca8a04; color: white; padding: 3px 12px; border-radius: 4px;">0 pontos</span>
+        </div>
+
+        <!-- TABELA CONSOLIDADA SIMPLIFICADA -->
+        <div class="secao-titulo">Lançamento Rápido de Escores por Domínio[cite: 15]</div>
+        <table class="tabela-mbgr">
+            <tr>
+                <th>Domínio / Bloco de Avaliação</th>
+                <th style="width: 120px; text-align: center;">Escore Obtido</th>
+                <th style="width: 120px; text-align: center;">Escore Máximo (Pior)[cite: 15]</th>
+            </tr>
+            <tr>
+                <td>1. Postura Corporal (Cabeça e Ombros)[cite: 15]</td>
+                <td><input type="text" class="salvavel calc-escore" value="0"></td>
+                <td style="text-align: center; color: #64748b; font-weight: bold;">7[cite: 15]</td>
+            </tr>
+            <tr>
+                <td>2. Exame Extra-Oral (Face, Masseter, Lábios, Perfil)[cite: 15]</td>
+                <td><input type="text" class="salvavel calc-escore" value="0"></td>
+                <td style="text-align: center; color: #64748b; font-weight: bold;">39[cite: 15]</td>
+            </tr>
+            <tr>
+                <td>3. Exame Intra-Oral (Língua, Bochechas, Palato, Oclusão)[cite: 15]</td>
+                <td><input type="text" class="salvavel calc-escore" value="0"></td>
+                <td style="text-align: center; color: #64748b; font-weight: bold;">61[cite: 15]</td>
+            </tr>
+            <tr>
+                <td>4. Mobilidade (Lábios, Língua, Bochechas, Mandíbula)[cite: 15]</td>
+                <td><input type="text" class="salvavel calc-escore" value="0"></td>
+                <td style="text-align: center; color: #64748b; font-weight: bold;">118[cite: 15]</td>
+            </tr>
+            <tr>
+                <td>5. Tônus e Sensibilidade (Dor à palpação)[cite: 15]</td>
+                <td><input type="text" class="salvavel calc-escore" value="0"></td>
+                <td style="text-align: center; color: #64748b; font-weight: bold;">18[cite: 15]</td>
+            </tr>
+            <tr>
+                <td>6. Funções Orais (Respiração, Mastigação, Deglutição, Fala e Voz)[cite: 15]</td>
+                <td><input type="text" class="salvavel calc-escore" value="0"></td>
+                <td style="text-align: center; color: #64748b; font-weight: bold;">107[cite: 15]</td>
+            </tr>
+        </table>
+
+        <!-- HIPÓTESE E CONDUTAS -->
+        <div class="secao-titulo">Síntese Diagnóstica e Conduta[cite: 15]</div>
+        <table class="tabela-mbgr">
+            <tr>
+                <td><strong>Hipótese Diagnóstica Fonoaudiológica:</strong><br><textarea class="salvavel" style="width:100%; height:70px; border:none; background:transparent; font-family:inherit; outline:none; font-size:13px;" placeholder="Resumo dos achados e diagnóstico miofuncional..."></textarea>[cite: 15]</td>
+            </tr>
+            <tr>
+                <td><strong>Plano Terapêutico / Condutas:</strong><br><textarea class="salvavel" style="width:100%; height:70px; border:none; background:transparent; font-family:inherit; outline:none; font-size:13px;" placeholder="Metas terapêuticas e orientações..."></textarea>[cite: 15]</td>
+            </tr>
+        </table>
+
+        <!-- BOTÕES DE AÇÃO -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 35px;" class="no-print">
+            <button onclick="limparFormulario()" style="background:#fee2e2; color:#b91c1c; padding:10px 20px; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">Limpar Ficha</button>
+            <button onclick="window.print()" style="background:#1e293b; color:white; padding:10px 20px; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">Imprimir / Salvar PDF</button>
+        </div>
+    </div>
+
+    <script>
+        if(!document.getElementById('mbgr_data').value) {
+            document.getElementById('mbgr_data').value = new Date().toLocaleDateString('pt-BR');
+        }
+
+        const CHAVE_STORAGE = "ficha_mbgr_simplificado_v1";
+
+        function calcularTotalEscores() {
+            const inputsEscore = document.querySelectorAll('.calc-escore');
+            let soma = 0;
+            inputsEscore.forEach(input => {
+                let valor = parseInt(input.value);
+                if (!isNaN(valor)) {
+                    soma += valor;
+                }
+            });
+            document.getElementById('escoreTotal').innerText = `${soma} pontos`;
+        }
+
+        document.querySelectorAll('.salvavel').forEach(el => {
+            el.addEventListener('input', () => { 
+                salvarDados(); 
+                calcularTotalEscores();
+            });
+        });
+
+        function salvarDados() {
+            const inputs = document.querySelectorAll('.salvavel');
+            const dados = {};
+            inputs.forEach((el, index) => {
+                dados['input_' + index] = el.value;
+            });
+            localStorage.setItem(CHAVE_STORAGE, JSON.stringify(dados));
+            
+            const status = document.getElementById('statusAutoSave');
+            status.innerText = "💾 Salvo automaticamente";
+            setTimeout(() => { status.innerText = "💾 Salvamento automático ativo"; }, 2000);
+        }
+
+        function carregarDados() {
+            const salvos = localStorage.getItem(CHAVE_STORAGE);
+            if (!salvos) return;
+            const dados = JSON.parse(salvos);
+            const inputs = document.querySelectorAll('.salvavel');
+            inputs.forEach((el, index) => {
+                if (dados['input_' + index] !== undefined) {
+                    el.value = dados['input_' + index];
+                }
+            });
+            calcularTotalEscores();
+        }
+
+        function limparFormulario() {
+            if (confirm("Deseja realmente limpar todos os dados desta avaliação MBGR?")) {
+                localStorage.removeItem(CHAVE_STORAGE);
+                location.reload();
+            }
+        }
+
+        window.onload = carregarDados;
+    </script>
+</body>
+</html>

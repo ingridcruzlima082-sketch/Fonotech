@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Semáforo da Fala - FonoTech</title>
+    <style>
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; background-color: #f8fafc; color: #1e293b; margin: 0; padding: 20px; text-align: center; }
+        .container { max-width: 800px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+        h1 { color: #1e293b; margin-bottom: 5px; font-size: 24px; }
+        p.sub { color: #64748b; margin-bottom: 25px; font-size: 14px; }
+        .form-identificacao { margin: 20px 0; padding: 20px; background: #f1f5f9; border-radius: 8px; border: 1px solid #cbd5e1; }
+        .form-identificacao input { padding: 10px; font-size: 15px; width: 80%; max-width: 350px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 8px; outline: none; }
+        .btn-iniciar { background-color: #1d4ed8; color: white; border: none; padding: 10px 25px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; margin-top: 15px; display: block; margin-left: auto; margin-right: auto; }
+        .jogo-area { display: none; }
+        .semaforo { width: 120px; background: #1e293b; margin: 20px auto; padding: 15px; border-radius: 20px; display: flex; flex-direction: column; gap: 12px; align-items: center; }
+        .luz { width: 70px; height: 70px; border-radius: 50%; background: #475569; opacity: 0.3; }
+        .luz.vermelho.ativo { background: #ef4444; opacity: 1; box-shadow: 0 0 15px #ef4444; }
+        .luz.amarelo.ativo { background: #eab308; opacity: 1; box-shadow: 0 0 15px #eab308; }
+        .luz.verde.ativo { background: #22c55e; opacity: 1; box-shadow: 0 0 15px #22c55e; }
+        .botoes-controle { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+        .btn-luz { padding: 10px 20px; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; color: white; }
+        .voltar-link { display: inline-block; margin-top: 30px; text-decoration: none; color: #64748b; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚦 Semáforo da Fala</h1>
+        <p class="sub">Autorregulação do ritmo e taxa de elocução</p>
+        <div id="telaIdentificacao" class="form-identificacao">
+            <label style="font-weight: bold; display: block;">Nome do Paciente:</label>
+            <input type="text" id="nomePaciente" placeholder="Nome completo...">
+            <button type="button" class="btn-iniciar" onclick="iniciar()">Iniciar 🚀</button>
+        </div>
+        <div id="telaJogo" class="jogo-area">
+            <div style="font-size: 13px; color: #64748b; margin-bottom: 10px;">Paciente: <strong id="exibirNome"></strong></div>
+            <div class="semaforo">
+                <div class="luz vermelho" id="luzVermelha"></div>
+                <div class="luz amarelo" id="luzAmarela"></div>
+                <div class="luz verde" id="luzVerde"></div>
+            </div>
+            <div id="statusTexto" style="font-size: 20px; font-weight: bold; margin: 15px 0; color: #1e293b;">Aguardando controle...</div>
+            <div class="botoes-controle">
+                <button class="btn-luz" style="background:#ef4444;" onclick="mudar('vermelho')">Pausa (Vermelho)</button>
+                <button class="btn-luz" style="background:#eab308;" onclick="mudar('amarelo')">Devagar (Amarelo)</button>
+                <button class="btn-luz" style="background:#22c55e;" onclick="mudar('verde')">Normal (Verde)</button>
+            </div>
+        </div>
+        <a href="index.html" class="voltar-link">⬅️ Voltar para a Pasta de Jogos</a>
+    </div>
+    <script>
+        function iniciar() {
+            let nome = document.getElementById('nomePaciente').value;
+            if(!nome) return alert('Digite o nome');
+            document.getElementById('exibirNome').innerText = nome;
+            document.getElementById('telaIdentificacao').style.display = 'none';
+            document.getElementById('telaJogo').style.display = 'block';
+        }
+        function mudar(cor) {
+            document.querySelectorAll('.luz').forEach(l => l.classList.remove('ativo'));
+            if(cor === 'vermelho') {
+                document.getElementById('luzVermelha').classList.add('ativo');
+                document.getElementById('statusTexto').innerText = "🛑 Pausa / Silêncio";
+            } else if(cor === 'amarelo') {
+                document.getElementById('luzAmarela').classList.add('ativo');
+                document.getElementById('statusTexto').innerText = "⚠️ Fala bem devagar";
+            } else if(cor === 'verde') {
+                document.getElementById('luzVerde').classList.add('ativo');
+                document.getElementById('statusTexto').innerText = "🟢 Fala contínua e normal";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,213 +1,197 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
-    <title>Gestão de Pacientes - FonoTech</title>
+    <title>Cadastro e Gestão de Pacientes - FonoTech</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        .form-cadastro {
+            background: #FFFDF9;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1.5px solid #CDD98D;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(88, 28, 35, 0.05);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #581C23;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #CDD98D;
+            border-radius: 10px;
+            font-family: 'Lora', serif;
+            font-size: 14.5px;
+            box-sizing: border-box;
+            background-color: #FFFDF9;
+        }
+        .btn-salvar {
+            background-color: #F33F0A !important;
+            color: white !important;
+            border: none;
+            padding: 12px 25px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: 'Lora', serif;
+            transition: 0.2s;
+            box-shadow: 0 4px 12px rgba(243, 63, 10, 0.2);
+        }
+        .btn-salvar:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
         .tabela-pacientes {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            background-color: white;
-            border-radius: 8px;
+            background: #FFFDF9;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 15px rgba(88, 28, 35, 0.05);
         }
-
         .tabela-pacientes th, .tabela-pacientes td {
-            padding: 12px 15px;
+            padding: 15px;
             text-align: left;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #CDD98D;
         }
-
         .tabela-pacientes th {
-            background-color: #005f73;
-            color: white;
-            font-weight: 600;
-        }
-
-        .tabela-pacientes tr:hover {
-            background-color: #f1f8f9;
-        }
-
-        .btn-acao {
-            padding: 6px 12px;
-            font-size: 13px;
-            margin: 2px;
+            background-color: #CDD98D;
+            color: #581C23;
+            font-family: 'Playfair Display', serif;
         }
     </style>
 </head>
-
 <body>
-
-    <!-- CABEÇALHO E NAVEGAÇÃO -->
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;" class="no-print">
-        <a href="index.html">
-            <button type="button">⬅️ Voltar ao Menu</button>
-        </a>
-
-        <button onclick="window.print()" style="background-color: #28a745; font-weight: bold;">
-            🖨️ Imprimir Lista de Pacientes
-        </button>
+    <div class="no-print" style="max-width: 950px; margin: 0 auto 20px auto;">
+        <a href="index.html" style="text-decoration: none;"><button type="button" class="btn-voltar-topo">⬅️ Voltar ao Menu Principal</button></a>
     </div>
 
-    <h1>👥 Cadastro e Gestão de Pacientes</h1>
-    <p class="no-print">Cadastre os dados cadastrais dos pacientes para controle clínico no FonoTech.</p>
+    <div class="container-hub">
+        <div class="cabecalho-hub">
+            <h1>👤 Cadastro e Gestão de Pacientes</h1>
+            <p>Registo de novos pacientes, dados clínicos e histórico de acompanhamento</p>
+        </div>
 
-    <!-- FORMULÁRIO DE CADASTRO -->
-    <div class="card-conteudo no-print" style="margin-bottom: 30px;">
-        <h2 style="color: #005f73; margin-top: 0;">➕ Novo Cadastro</h2>
-        <form id="formCadastroPaciente">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                <div>
-                    <label for="nomePaciente"><strong>Nome Completo:</strong></label><br>
-                    <input type="text" id="nomePaciente" placeholder="Ex: Danielly Lais Alves de Lima">
+        <!-- FORMULÁRIO DE NOVO PACIENTE -->
+        <div class="form-cadastro">
+            <h2 style="margin-top: 0; font-size: 20px; border-bottom: 2px solid #CDD98D; padding-bottom: 8px;">Adicionar Novo Paciente</h2>
+            <form id="formPaciente" onsubmit="salvarPaciente(event)">
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 15px;">
+                    <div class="form-group">
+                        <label>Nome Completo do Paciente:</label>
+                        <input type="text" id="nome" required placeholder="Digite o nome completo...">
+                    </div>
+                    <div class="form-group">
+                        <label>Data de Nascimento:</label>
+                        <input type="date" id="nascimento" required>
+                    </div>
                 </div>
-                <div>
-                    <label for="dataNascimento"><strong>Data de Nascimento:</strong></label><br>
-                    <input type="date" id="dataNascimento">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="form-group">
+                        <label>Nome do Responsável (se menor):</label>
+                        <input type="text" id="responsavel" placeholder="Nome do responsavel...">
+                    </div>
+                    <div class="form-group">
+                        <label>Contacto / Telefone:</label>
+                        <input type="text" id="contacto" placeholder="(00) 00000-0000">
+                    </div>
                 </div>
-                <div>
-                    <label for="responsavel"><strong>Nome do Responsável:</strong></label><br>
-                    <input type="text" id="responsavel" placeholder="Ex: Maria Alves">
+                <div class="form-group">
+                    <label>Queixa Principal / Observações Clínicas:</label>
+                    <textarea id="queixa" rows="3" placeholder="Descreva a queixa principal ou foco terapêutico..."></textarea>
                 </div>
-                <div>
-                    <label for="telefone"><strong>Telefone de Contato:</strong></label><br>
-                    <input type="text" id="telefone" placeholder="Ex: (84) 99999-9999">
-                </div>
-                <div style="grid-column: span 2;">
-                    <label for="diagnostico"><strong>Diagnóstico / Demandas Clínicas:</strong></label><br>
-                    <input type="text" id="diagnostico" placeholder="Ex: Transtorno do Espectro Autista (TEA) - CID 10 F84.0" style="max-width: 100%;">
-                </div>
+                <button type="submit" class="btn-salvar">💾 Guardar Paciente</button>
+            </form>
+        </div>
+
+        <!-- LISTA DE PACIENTES CADASTRADOS -->
+        <div class="secao-grid">
+            <h2>Pacientes Registados</h2>
+            <div style="overflow-x: auto;">
+                <table class="tabela-pacientes">
+                    <thead>
+                        <tr>
+                            <th>Nome do Paciente</th>
+                            <th>Responsável</th>
+                            <th>Contacto</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listaPacientes">
+                        <!-- Os pacientes salvos aparecem aqui dinamicamente -->
+                    </tbody>
+                </table>
             </div>
+        </div>
 
-            <br>
-            <button type="button" onclick="salvarPaciente()" style="background-color: #005f73;">💾 Cadastrar Paciente</button>
-        </form>
-    </div>
-
-    <!-- TABELA DE PACIENTES CADASTRADOS -->
-    <h2 style="color: #005f73;">📋 Pacientes Cadastrados</h2>
-    <div id="containerTabela">
-        <table class="tabela-pacientes">
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Data de Nasc.</th>
-                    <th>Responsável</th>
-                    <th>Contato</th>
-                    <th>Diagnóstico</th>
-                    <th class="no-print">Ações</th>
-                </tr>
-            </thead>
-            <tbody id="corpoTabelaPacientes">
-                <!-- LINHAS PREENCHIDAS VIA JAVASCRIPT -->
-            </tbody>
-        </table>
+        <footer>
+            <p>FonoTech &copy; 2026 - Gestão Prontuário Clínico</p>
+        </footer>
     </div>
 
     <script>
-        // Carrega a lista de pacientes ao abrir a página
-        document.addEventListener("DOMContentLoaded", listarPacientes);
-
-        function salvarPaciente() {
-            let nome = document.getElementById("nomePaciente").value.trim();
-            let nascimento = document.getElementById("dataNascimento").value;
-            let responsavel = document.getElementById("responsavel").value.trim();
-            let telefone = document.getElementById("telefone").value.trim();
-            let diagnostico = document.getElementById("diagnostico").value.trim();
-
-            if (nome === "") {
-                alert("Por favor, preencha o nome do paciente.");
-                return;
-            }
-
-            // Formata a data para exibição pt-BR se preenchida
-            let dataFormatada = nascimento ? new Date(nascimento + "T00:00:00").toLocaleDateString("pt-BR") : "-";
-
-            let novoPaciente = {
-                id: Date.now(),
-                nome: nome,
-                nascimento: dataFormatada,
-                nascimentoRaw: nascimento,
-                responsavel: responsavel || "-",
-                telefone: telefone || "-",
-                diagnostico: diagnostico || "-"
-            };
-
-            let pacientes = JSON.parse(localStorage.getItem("lista_pacientes")) || [];
+        // Função simples para gerir salvamento via localStorage
+        function carregarPacientes() {
+            const pacientes = JSON.parse(localStorage.getItem('fonotech_pacientes')) || [];
+            const tbody = document.getElementById('listaPacientes');
+            tbody.innerHTML = '';
             
-            // Verifica se o paciente já está cadastrado pelo nome
-            let indexExistente = pacientes.findIndex(p => p.nome.toLowerCase() === nome.toLowerCase());
-
-            if (indexExistente !== -1) {
-                pacientes[indexExistente] = novoPaciente;
-                alert("Dados do paciente " + nome + " atualizados com sucesso!");
-            } else {
-                pacientes.push(novoPaciente);
-                alert("Paciente " + nome + " cadastrado com sucesso!");
-            }
-
-            localStorage.setItem("lista_pacientes", JSON.stringify(pacientes));
-            
-            // Limpa o formulário e atualiza a lista
-            document.getElementById("formCadastroPaciente").reset();
-            listarPacientes();
-        }
-
-        function listarPacientes() {
-            let pacientes = JSON.parse(localStorage.getItem("lista_pacientes")) || [];
-            let tbody = document.getElementById("corpoTabelaPacientes");
-            tbody.innerHTML = "";
-
             if (pacientes.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #777;"><em>Nenhum paciente cadastrado ainda.</em></td></tr>`;
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: #713f12; font-style: italic;">Nenhum paciente registado ainda.</td></tr>';
                 return;
             }
 
-            pacientes.forEach(p => {
-                let tr = document.createElement("tr");
-                tr.innerHTML = `
-                    <td><strong>${p.nome}</strong></td>
-                    <td>${p.nascimento}</td>
-                    <td>${p.responsavel}</td>
-                    <td>${p.telefone}</td>
-                    <td>${p.diagnostico}</td>
-                    <td class="no-print">
-                        <button class="btn-acao" style="background-color: #0a9396;" onclick="editarPaciente(${p.id})">✏️ Editar</button>
-                        <button class="btn-acao" style="background-color: #d90429;" onclick="removerPaciente(${p.id})">🗑️ Excluir</button>
-                    </td>
+            pacientes.forEach((p, index) => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td style="font-weight: 600;">${p.nome}</td>
+                        <td>${p.responsavel || '-'}</td>
+                        <td>${p.contacto || '-'}</td>
+                        <td>
+                            <button onclick="removerPaciente(${index})" style="background: #F33F0A; color: white; border: none; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-family: 'Lora', serif; font-size: 13px;">Excluir</button>
+                        </td>
+                    </tr>
                 `;
-                tbody.appendChild(tr);
             });
         }
 
-        function editarPaciente(id) {
-            let pacientes = JSON.parse(localStorage.getItem("lista_pacientes")) || [];
-            let p = pacientes.find(item => item.id === id);
+        function salvarPaciente(event) {
+            event.preventDefault();
+            const novoPaciente = {
+                nome: document.getElementById('nome').value,
+                nascimento: document.getElementById('nascimento').value,
+                responsavel: document.getElementById('responsavel').value,
+                contacto: document.getElementById('contacto').value,
+                queixa: document.getElementById('queixa').value
+            };
 
-            if (p) {
-                document.getElementById("nomePaciente").value = p.nome;
-                document.getElementById("dataNascimento").value = p.nascimentoRaw || "";
-                document.getElementById("responsavel").value = p.responsavel === "-" ? "" : p.responsavel;
-                document.getElementById("telefone").value = p.telefone === "-" ? "" : p.telefone;
-                document.getElementById("diagnostico").value = p.diagnostico === "-" ? "" : p.diagnostico;
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+            const pacientes = JSON.parse(localStorage.getItem('fonotech_pacientes')) || [];
+            pacientes.push(novoPaciente);
+            localStorage.setItem('fonotech_pacientes', JSON.stringify(pacientes));
+
+            document.getElementById('formPaciente').reset();
+            carregarPacientes();
+        }
+
+        function removerPaciente(index) {
+            if (confirm('Deseja realmente remover este paciente?')) {
+                const pacientes = JSON.parse(localStorage.getItem('fonotech_pacientes')) || [];
+                pacientes.splice(index, 1);
+                localStorage.setItem('fonotech_pacientes', JSON.stringify(pacientes));
+                carregarPacientes();
             }
         }
 
-        function removerPaciente(id) {
-            if (confirm("Tem certeza que deseja remover este paciente da lista?")) {
-                let pacientes = JSON.parse(localStorage.getItem("lista_pacientes")) || [];
-                pacientes = pacientes.filter(item => item.id !== id);
-                localStorage.setItem("lista_pacientes", JSON.stringify(pacientes));
-                listarPacientes();
-            }
-        }
+        window.onload = carregarPacientes;
     </script>
-
 </body>
-
 </html>
